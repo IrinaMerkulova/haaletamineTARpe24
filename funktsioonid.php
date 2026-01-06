@@ -22,7 +22,9 @@ function kuvaTabeliLaulud(){
         echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
-        echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?lisa1punkt=$id'>+1 punk</a></td>";
+        echo "<td><a href='?resetpunkt=$id'>Reset punkt</a></td>";
+        echo "<td><a href='?kustuta=$id'>Kustuta</a></td>";
         echo "</tr>";
     }
 }
@@ -46,6 +48,26 @@ function lauluLisamine($lauluNimi, $laulja, $pilt){
         VALUES (?, ?, ?, 1, NOW())"
     );
     $paring->bind_param('sss', $lauluNimi, $laulja, $pilt);
+    $paring->execute();
+}
+
+function resetpunkt($id){
+    global $yhendus;
+
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+}
+
+function lauluKustutamine($id){
+    global $yhendus;
+
+    $paring = $yhendus->prepare(
+        "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
     $paring->execute();
 }
 
