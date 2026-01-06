@@ -6,6 +6,13 @@ if(isset($_REQUEST['lisa1Punkt'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+
+//kutsume välja lisamis funktsiooni
+if(!empty($_REQUEST['lauluNimi'])){
+    lauluLisamine($_REQUEST['lauluNimi'], $_REQUEST['laulja'], $_REQUEST['pilt']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -31,5 +38,18 @@ if(isset($_REQUEST['lisa1Punkt'])){
     kuvaTabeliLaulud();
     ?>
 </table>
+<h2>Lisa uus laul</h2>
+<form action="?" method="post">
+    <label>Laulu nimi:</label><br>
+    <input type="text" name="lauluNimi"><br><br>
+
+    <label>Laulja:</label><br>
+    <input type="text" name="laulja"><br><br>
+
+    <label>Pildi URL:</label><br>
+    <textarea name="pilt"></textarea><br><br>
+
+    <input type="submit" value="Lisa laul">
+</form>
 </body>
 </html>
