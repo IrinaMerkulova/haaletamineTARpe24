@@ -8,6 +8,13 @@ if(isset($_REQUEST['lisa1punkt']))
     exit();
 }
 
+if(isset($_REQUEST['eemalda1punkt']))
+{
+    eemalda1punkt($_REQUEST['eemalda1punkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+
 // kutsume lisamisfunktsiooni
 if(!empty($_REQUEST["lauluNimi"]) && !empty($_REQUEST["laulja"]))
 {
@@ -53,6 +60,7 @@ if(isset($_REQUEST['kustuta']))
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>Nulleeri Punktid</th>
         <th>Kustuta</th>
     </tr>

@@ -25,6 +25,7 @@ function kuvaTabeliLaulud()
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?eemalda1punkt=$id'>-1 punkt</a></td>";
         echo "<td><a href='?nulleeripunktid=$id'>Nulleeri Punktid</a></td>";
         echo "<td><a href='?kustuta=$id'>Kustuta</a></td>";
         echo "</tr>";
@@ -84,6 +85,18 @@ function kustuta($id)
     /* +1 punkt */
     $paring = $yhendus->prepare(
         "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+
+}
+
+function eemalda1punkt($id)
+{
+    global $yhendus;
+    /* +1 punkt */
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
     );
     $paring->bind_param('i', $id);
     $paring->execute();
