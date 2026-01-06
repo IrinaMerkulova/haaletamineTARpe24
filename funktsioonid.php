@@ -21,7 +21,7 @@ function kuvaTabeliLaulud()
         echo "<tr>";
         echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
         echo "<td>" . htmlspecialchars($laulja) . "</td>";
-        echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
+        echo "<td><img src='" . htmlspecialchars($pilt) . "'alt='pilt'></td>";
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
@@ -29,4 +29,13 @@ function kuvaTabeliLaulud()
 
 
     }
+}
+
+function lisa1punkt($id){
+    global $yhendus;
+        $paring = $yhendus->prepare(
+            "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
+        );
+        $paring->bind_param('i', $id);
+        $paring->execute();
 }
