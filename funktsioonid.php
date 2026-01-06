@@ -29,4 +29,14 @@ function kuvaTabelidLaulud()
 
     }
 }
-?>
+function lisa1punkt($id)
+{
+    global $yhendus;
+
+
+        $paring = $yhendus->prepare(
+            "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
+        );
+        $paring->bind_param('i', $id);
+        $paring->execute();
+}
