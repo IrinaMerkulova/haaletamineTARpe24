@@ -14,6 +14,12 @@ if(isset($_REQUEST['lisa1Punkt'])){
     exit();
 }
 
+if(isset($_REQUEST['miinus1Punkt'])){
+    miinus1Punkt($_REQUEST['miinus1Punkt']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
 //kutsume välja lisamis funktsiooni
 if(!empty($_REQUEST['lauluNimi'])){
     lauluLisamine($_REQUEST['lauluNimi'], $_REQUEST['laulja'], $_REQUEST['pilt']);
@@ -46,6 +52,7 @@ if(isset($_REQUEST['punktidNull'])){
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>Punktid null</th>
         <th>Kustuta</th>
     </tr>

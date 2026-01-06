@@ -22,6 +22,7 @@ function kuvaTabeliLaulud(){
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1Punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?miinus1Punkt=$id'>-1 punkt</a></td>";
         echo "<td><a href='?punktidNull=$id'>Punktid null</a></td>";
         echo "<td><a href='?lauluKustutamine=$id'>Kustuta</a></td>";
         echo "</tr>";
@@ -35,6 +36,16 @@ function lisa1Punkt($id){
         );
         $paring->bind_param('i', $id);
         $paring->execute();
+
+}
+
+function miinus1Punkt($id){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
 
 }
 
