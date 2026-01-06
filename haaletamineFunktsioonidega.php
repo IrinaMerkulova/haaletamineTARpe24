@@ -29,6 +29,12 @@ if (isset($_REQUEST['eemaldaPunktid']))
 {
     eemaldaPunktid($_REQUEST['eemaldaPunktid']);
 }
+
+//eemalda 1 punkti funktsiooni kutsumine
+if (isset($_REQUEST['lahuta1punkt']))
+{
+    lahuta1Punkt($_REQUEST['lahuta1punkt']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +56,7 @@ if (isset($_REQUEST['eemaldaPunktid']))
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>Kustuta laul</th>
         <th>Eemalda punktid</th>
     </tr>
