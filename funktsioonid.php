@@ -22,6 +22,7 @@ function kuvaTabeliLaulud(){
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1Punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?punktidNull=$id'>+Punktid null</a></td>";
         echo "</tr>";
     }
 }
@@ -46,5 +47,15 @@ function lauluLisamine($lauluNimi, $laulja, $pilt){
         $paring->bind_param(
             'sss', $lauluNimi, $laulja, $pilt);
         $paring->execute();
+
+}
+
+function punktidNull($id){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
 
 }

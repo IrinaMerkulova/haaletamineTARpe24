@@ -13,6 +13,12 @@ if(!empty($_REQUEST['lauluNimi'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+
+if(isset($_REQUEST['punktidNull'])){
+    punktidNull($_REQUEST['punktidNull']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -33,6 +39,7 @@ if(!empty($_REQUEST['lauluNimi'])){
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>Punktid null</th>
     </tr>
     <?php
     kuvaTabeliLaulud();
