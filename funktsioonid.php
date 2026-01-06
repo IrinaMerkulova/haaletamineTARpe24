@@ -17,7 +17,7 @@ function kuvaTabeliLaulud(){
         echo "<tr>";
         echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
         echo "<td>" . htmlspecialchars($laulja) . "</td>";
-        echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
+        echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
