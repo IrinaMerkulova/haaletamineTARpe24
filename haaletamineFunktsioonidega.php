@@ -7,6 +7,11 @@ if(isset($_REQUEST['lisa1punkt'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+if(isset($_REQUEST['miinus1punkt'])){
+    miinus1punkt($_REQUEST['miinus1punkt']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 if(isset($_REQUEST['nullpunkt'])){
     nullpunkt($_REQUEST['nullpunkt']);
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -46,6 +51,7 @@ isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>Null Punkt</th>
         <th>Kustuta</th>
     </tr>
