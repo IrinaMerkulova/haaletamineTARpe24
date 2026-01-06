@@ -58,6 +58,8 @@ if(!empty($_REQUEST['lauluNimi']))
     kuvaTabelidLaulud();
     lisa1punkt(0);
     ?>
+</table>
+
 
     <h2>Lisa uus laul</h2>
     <form action="?" method="post">
@@ -72,7 +74,8 @@ if(!empty($_REQUEST['lauluNimi']))
 
         <input type="submit" value="Lisa laul">
 
-</table>
+
+
 </body>
 </html>
 

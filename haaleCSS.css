@@ -18,3 +18,8 @@ h1,th
 {
     color:white;
 }
+table#1
+{
+    background-color: #6c9a6c;
+    border-radius: 10px;
+}
