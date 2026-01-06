@@ -1,0 +1,31 @@
+*{
+    background-color:steelblue;
+    font-family: "Book Antiqua";
+}
+h1{
+    border: 2px solid black;
+    padding: 2px;
+    text-align:center;
+    background-color: white;
+}
+
+h2{
+    width: 25%;
+    border: 2px solid black;
+    padding: 2px;
+    text-align:center;
+    background-color: white;
+}
+
+table{
+    border: 2px solid black;
+    background-color: white;
+}
+tr,th,td{
+    border: 2px solid black;
+    background-color: white;
+}
+
+tr,th,td,a,img{
+    background-color: white;
+}

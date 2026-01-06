@@ -37,7 +37,7 @@ isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
-
+    <link rel="stylesheet" href="haalStyle.css">
 </head>
 <body>
 
