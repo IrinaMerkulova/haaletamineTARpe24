@@ -24,6 +24,7 @@ function kuvaTabelidLaulud()
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?kustuta=$id'>Kustuta</a></td>";
         echo "</tr>";
 
 
@@ -39,4 +40,26 @@ function lisa1punkt($id)
         );
         $paring->bind_param('i', $id);
         $paring->execute();
+}
+
+/* Laulu lisamine */
+function laululisamine($lauluNimi, $laulja, $pilt)
+ {global $yhendus;
+    $paring = $yhendus->prepare(
+        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
+         VALUES (?, ?, ?, 1, NOW())"
+    );
+    $paring->bind_param('sss',$lauluNimi,$laulja, $pilt);
+
+     $paring->execute();
+}
+
+function lauluKustutamine($id)
+{global $yhendus;
+    $paring = $yhendus->prepare(
+       "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+
+    $paring->execute();
 }
