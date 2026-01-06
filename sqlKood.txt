@@ -2,7 +2,7 @@ Kasuta XAMPPis SQL kood:
 
 -- 1. Loo kasutaja
 
-CREATE USER IF NOT EXISTS 'opilaneKaur'@'localhost'
+CREATE USER IF NOT EXISTS 'opilaneKaur'
 
 IDENTIFIED BY '12345';
 
@@ -20,9 +20,7 @@ COLLATE utf8mb4_estonian_ci;
 
 -- 3. Anna õigused kasutajale opilane
 
-GRANT ALL PRIVILEGES ON haal.* TO 'opilaneKaur'@'localhost';
-
-FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON haal.* TO 'opilaneKaur';
 
 
 
