@@ -1,5 +1,8 @@
+
 <?php
+
 require ('funktsioonid.php');
+
 //funktsiooni kutsumine
 if (isset($_REQUEST['lisa1punkt'])) {
     lisa1punkt($_REQUEST['lisa1punkt']);
@@ -33,6 +36,7 @@ if (!empty($_REQUEST['lauluNimi'])){
 <!DOCTYPE html>
 <html lang="et">
 <head>
+    <link rel="stylesheet" href="Haalfunk.css">
     <meta charset="UTF-8">
     <title>Laulude leht</title>
 
