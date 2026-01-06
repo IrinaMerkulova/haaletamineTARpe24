@@ -23,6 +23,13 @@ if(isset($_REQUEST['nulleeripunktid']))
     header("Location: ".$_SERVER['PHP_SELF']);
     exit();
 }
+// kutsume kustutamisfunktsiooni
+if(isset($_REQUEST['kustuta']))
+{
+    kustuta($_REQUEST['kustuta']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
 
 ?>
 
@@ -47,6 +54,7 @@ if(isset($_REQUEST['nulleeripunktid']))
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
         <th>Nulleeri Punktid</th>
+        <th>Kustuta</th>
     </tr>
 
     <?php
