@@ -1,5 +1,11 @@
 <?php
 require ('funktsioonid.php');
+//funktsiooni kutsumine
+if(isset($_REQUEST['lisa1Punkt'])){
+    lisa1Punkt($_REQUEST['lisa1Punkt']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
