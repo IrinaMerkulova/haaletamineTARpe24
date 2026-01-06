@@ -15,6 +15,15 @@ if(!empty($_REQUEST["lauluNimi"]) && !empty($_REQUEST["laulja"]))
     header("Location: ".$_SERVER["PHP_SELF"]);
     exit();
 }
+
+// kutsume nulleerimisfunktsiooni
+if(isset($_REQUEST['nulleeripunktid']))
+{
+    nulleeriPunktid($_REQUEST['nulleeripunktid']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+
 ?>
 
 
@@ -37,6 +46,7 @@ if(!empty($_REQUEST["lauluNimi"]) && !empty($_REQUEST["laulja"]))
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>Nulleeri Punktid</th>
     </tr>
 
     <?php

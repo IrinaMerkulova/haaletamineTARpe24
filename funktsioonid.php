@@ -25,6 +25,7 @@ function kuvaTabeliLaulud()
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?nulleeripunktid=$id'>Nulleeri Punktid</a></td>";
         echo "</tr>";
     }
 
@@ -60,4 +61,17 @@ function lisaLaul($lauluNimi, $laulja, $pilt)
         $pilt
     );
     $paring->execute();
+}
+
+// punkti lisamise funktsioon
+function nulleeriPunktid($id)
+{
+    global $yhendus;
+    /* +1 punkt */
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+
 }
