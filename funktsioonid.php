@@ -27,4 +27,18 @@ function kuvaTabeliLaulud()
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
         echo "</tr>";
     }
+
+
+}
+// punkti lisamise funktsioon
+function lisa1punkt($id)
+{
+    global $yhendus;
+    /* +1 punkt */
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+
 }

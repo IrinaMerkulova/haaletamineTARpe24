@@ -1,5 +1,12 @@
 <?php
 require('funktsioonid.php');
+// funktsiooni kutsumine
+if(isset($_REQUEST['lisa1punkt']))
+{
+    lisa1punkt($_REQUEST['lisa1punkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 
 
@@ -27,7 +34,6 @@ require('funktsioonid.php');
     <?php
         kuvaTabeliLaulud();
     ?>
-
 </table>
 </body>
 </html>
