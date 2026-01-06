@@ -1,6 +1,13 @@
 <?php
 require ('funktsioonid.php');
 //funktsiooni kutsumine
+
+if(isset($_REQUEST['lauluKustutamine'])){
+    lauluKustutamine($_REQUEST['lauluKustutamine']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
 if(isset($_REQUEST['lisa1Punkt'])){
     lisa1Punkt($_REQUEST['lisa1Punkt']);
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -40,6 +47,7 @@ if(isset($_REQUEST['punktidNull'])){
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
         <th>Punktid null</th>
+        <th>Kustuta</th>
     </tr>
     <?php
     kuvaTabeliLaulud();
