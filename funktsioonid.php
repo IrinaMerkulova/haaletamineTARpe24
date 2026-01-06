@@ -39,3 +39,14 @@ function lisa1punkt($id){
         $paring->bind_param('i', $id);
         $paring->execute();
 }
+function lauluLisamine($lauluNimi, $laulja, $pilt){
+    global $yhendus;
+        $paring = $yhendus->prepare(
+            "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
+         VALUES (?, ?, ?, 1, NOW())"
+        );
+        $paring->bind_param(
+            'sss', $lauluNimi, $laulja, $pilt
+        );
+        $paring->execute();
+}
