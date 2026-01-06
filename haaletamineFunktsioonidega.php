@@ -6,6 +6,21 @@ if (isset($_REQUEST['lisa1punkt'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+if (isset($_REQUEST['vota1punkt'])) {
+    vota1punkt($_REQUEST['vota1punkt']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+if (isset($_REQUEST['kustuta'])) {
+    laulukustutamine($_REQUEST['kustuta']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+if (isset($_REQUEST['nullid'])) {
+    nullipunktid($_REQUEST['nullid']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 
 // kutsume lisamisfunktsiooni
 if (!empty($_REQUEST['lauluNimi'])){
@@ -34,6 +49,9 @@ if (!empty($_REQUEST['lauluNimi'])){
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
+
+
     </tr>
     <?php
     kuvaTabeliLauld();

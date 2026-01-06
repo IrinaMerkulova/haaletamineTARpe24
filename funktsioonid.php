@@ -24,6 +24,10 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?vota1punkt=$id'>-1 punkt</a></td>";
+    echo "<td><a href='?kustuta=$id'>kustuta</a></td>";
+    echo "<td><a href='?nullid=$id'>Nulli punktid</a></td>";
+
     echo "</tr>";
 }
 }
@@ -32,6 +36,17 @@ function lisa1punkt($id){
    {
         $paring = $yhendus->prepare(
             "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
+        );
+        $paring->bind_param('i', $id);
+        $paring->execute();
+
+    }
+}
+function vota1punkt($id){
+    global $yhendus;
+    {
+        $paring = $yhendus->prepare(
+            "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
         );
         $paring->bind_param('i', $id);
         $paring->execute();
@@ -51,4 +66,26 @@ function lauluLisamine($lauluNimi, $laulja, $pilt){
     );
     $paring->execute();
 
+}
+function laulukustutamine($id){
+    global $yhendus;
+    {
+        $paring = $yhendus->prepare(
+            "DELETE FROM laulud WHERE id = ?"
+        );
+        $paring->bind_param('i', $id);
+        $paring->execute();
+
+    }
+}
+function nullipunktid($id){
+    global $yhendus;
+    {
+        $paring = $yhendus->prepare(
+            "UPDATE laulud SET punktid = punktid = 0 WHERE id = ?"
+        );
+        $paring->bind_param('i', $id);
+        $paring->execute();
+
+    }
 }
