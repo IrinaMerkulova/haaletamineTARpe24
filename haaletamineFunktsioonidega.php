@@ -1,8 +1,23 @@
 <?php
 require('funktsioonid.php');
+if(isset($_REQUEST['kustuta'])){
+    eemaldaLaul($_REQUEST['kustuta']);
+    header("Location: ". $_SERVER['PHP_SELF']);
+    exit();
+}
 //funktsiooni kutsumine
 if(isset($_REQUEST['lisa1punkt'])){
     lisa1punkt($_REQUEST['lisa1punkt']);
+    header("Location: ". $_SERVER['PHP_SELF']);
+    exit();
+}
+if(isset($_REQUEST['eemalda1punkt'])){
+    kustuta1punkt($_REQUEST['eemalda1punkt']);
+    header("Location: ". $_SERVER['PHP_SELF']);
+    exit();
+}
+if(isset($_REQUEST['nullipunktid'])){
+    nullipunktid($_REQUEST['nullipunktid']);
     header("Location: ". $_SERVER['PHP_SELF']);
     exit();
 }
@@ -13,6 +28,7 @@ if(!empty($_REQUEST['lauluNimi'])){
     header("Location: ". $_SERVER['PHP_SELF']);
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -33,10 +49,12 @@ if(!empty($_REQUEST['lauluNimi'])){
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
+        <th>Nulli punktid</th>
+        <th>Valikud</th>
     </tr>
     <?php
     kuvaTabeliLaulud();
-
     ?>
 </table>
 <h2>Lisa uus laul</h2>
