@@ -38,6 +38,7 @@ if(isset($_REQUEST['punktidNull'])){
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
+    <link rel="stylesheet" href="tabeliStyle.css">
 
 </head>
 <body>

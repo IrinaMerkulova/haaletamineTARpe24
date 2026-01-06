@@ -82,3 +82,5 @@ function punktidNull($id){
     $paring->execute();
 
 }
+?>
+<link rel="stylesheet" href="tabeliStyle.css">
