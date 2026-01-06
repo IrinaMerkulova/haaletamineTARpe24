@@ -22,6 +22,9 @@ function kuvaTabeliLaulud(){
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?kustuta1punkt=$id'>-1 punkt</a></td>";
+        echo "<td><a href='?kustuta1punkt=$id'>-1 punkt</a></td>";
+        echo "<td><a href='?punktNulliks=$id'>nulli</a></td>";
         echo "</tr>";
     }
 }
@@ -33,4 +36,41 @@ function lisa1punkt($id){
         );
         $paring->bind_param('i', $id);
         $paring->execute();
+}
+function lauluLisamine($lauluNimi, $laulja, $pilt){
+        global $yhendus;
+        $paring = $yhendus->prepare(
+            "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
+         VALUES (?, ?, ?, 1, NOW())"
+        );
+        $paring->bind_param(
+            'sss', $lauluNimi, $laulja, $pilt);
+        $paring->execute();
+}
+
+function kustuta1punkt($id){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+}
+
+function punktNulliks($id){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+}
+
+function lauluKustutamine(){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "delete from laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
 }

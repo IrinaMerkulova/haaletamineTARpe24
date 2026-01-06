@@ -74,6 +74,7 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?kustuta1punkt=$id'>-1 punkt</a></td>";
     echo "</tr>";
 }
 ?>
