@@ -1,6 +1,6 @@
 <?php
 $serverinimi='localhost';
-$kasutajanimi='';
+$kasutajanimi='opilaneMartten';
 $parool='12345';
 $andmebaasinimi='';
 $yhendus=new mysqli($serverinimi, $kasutajanimi, $parool, $andmebaasinimi);
