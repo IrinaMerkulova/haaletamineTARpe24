@@ -12,6 +12,11 @@ if(isset($_REQUEST['nullpunkt'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+if(isset($_REQUEST['delete'])){
+    delete($_REQUEST['delete']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 if (
 isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
 !empty($_REQUEST['lauluNimi']) &&

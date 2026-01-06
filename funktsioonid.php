@@ -45,6 +45,15 @@ function nullpunkt($id){
     $paring->execute();
 }
 
+function delete($id){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+}
+
 // laulu lisamine
 function lauluLisamine($lauluNimi, $laulja, $pilt){
     global $yhendus;
