@@ -28,6 +28,7 @@ function kuvaTabeliLaulud()
         echo "<td><a href='?eemalda1punkt=$id'>-1 punkt</a></td>";
         echo "<td><a href='?nulleeripunktid=$id'>Nulleeri Punktid</a></td>";
         echo "<td><a href='?kustuta=$id'>Kustuta</a></td>";
+        echo "<td> </td>";
         echo "</tr>";
     }
 

@@ -46,7 +46,7 @@ if(isset($_REQUEST['kustuta']))
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
-
+    <link rel="stylesheet" href="haaletamineStyle.css">
 </head>
 <body>
 
@@ -63,6 +63,7 @@ if(isset($_REQUEST['kustuta']))
         <th>-1 punkt</th>
         <th>Nulleeri Punktid</th>
         <th>Kustuta</th>
+        <th> </th>
     </tr>
 
     <?php
