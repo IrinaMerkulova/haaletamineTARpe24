@@ -42,7 +42,7 @@ if (isset($_REQUEST['lahuta1punkt']))
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
