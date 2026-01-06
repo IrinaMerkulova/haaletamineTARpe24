@@ -8,6 +8,7 @@ if(isset($_REQUEST['lisa1punkt']))
     exit();
 }
 
+//laulu lisamise funktsiooni kutsumine
 if (
     isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
     !empty($_REQUEST['lauluNimi']) &&
@@ -15,6 +16,18 @@ if (
 )
 {
     lisaLaul($_REQUEST['lauluNimi'], $_REQUEST['laulja'], $_REQUEST['pilt']);
+}
+
+//laulu kustutamise funktsiooni kutsumine
+if (isset($_REQUEST['kustutaLaul']))
+{
+    kustutaLaul($_REQUEST['kustutaLaul']);
+}
+
+//punktide eemaldamise funktsiooni kutsumine
+if (isset($_REQUEST['eemaldaPunktid']))
+{
+    eemaldaPunktid($_REQUEST['eemaldaPunktid']);
 }
 ?>
 
@@ -37,6 +50,8 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>Kustuta laul</th>
+        <th>Eemalda punktid</th>
     </tr>
     <?php
     kuvaTabeliLaulud();

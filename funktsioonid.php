@@ -23,6 +23,8 @@ function kuvaTabeliLaulud()
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?kustutaLaul=$id'>Kustuta</a></td>";
+        echo "<td><a href='?eemaldaPunktid=$id'>Eemalda punktid</a></td>";
         echo "</tr>";
     }
 }
@@ -52,6 +54,30 @@ function lisaLaul($lauluNimi, $laulja, $pilt)
         $laulja,
         $pilt
     );
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+function kustutaLaul($id)
+{
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+function eemaldaPunktid($id)
+{
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
     $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;

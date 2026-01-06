@@ -53,6 +53,7 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>Kustuta laul</th>
     </tr>
 
 <?php
@@ -74,6 +75,7 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?kustutalaul=$id'>Kustuta</a></td>";
     echo "</tr>";
 }
 ?>
