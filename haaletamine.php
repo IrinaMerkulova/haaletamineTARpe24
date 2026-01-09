@@ -71,6 +71,7 @@ tabeliKuvamine();
 ?>
 </table>
 
+
 <h2>Lisa uus laul</h2>
 <form action="?" method="post">
     <label>Laulu nimi:</label><br>
