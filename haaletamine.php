@@ -93,7 +93,7 @@ while ($paring->fetch()) {
     echo "<td><img alt='albumi pilt' src='" . htmlspecialchars($pilt) . "'></td>";
     echo "<td>$punktid</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
-    echo "<td><a href='?eemalda   1punkt=$id'>-1 punkt</a></td>";
+    echo "<td><a href='?eemalda1punkt=$id'>-1 punkt</a></td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))  ."</td>";
     echo "<td>
 <form action='?' method='post'>
