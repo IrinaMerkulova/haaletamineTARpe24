@@ -59,7 +59,8 @@ if(!empty($_REQUEST['lauluNimi']))
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
-        <th>Kustuta</th>
+        <th>Kommentaarid</th>
+
 
 
     </tr>

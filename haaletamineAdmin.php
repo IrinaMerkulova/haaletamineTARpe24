@@ -77,7 +77,7 @@ if (isset($_REQUEST['naita_id'])) {
     </tr>
 
 <?php
-kuvaTabelidLaulud();
+kuvaTabelidLauludAdmin();
 ?>
 </table>
 
