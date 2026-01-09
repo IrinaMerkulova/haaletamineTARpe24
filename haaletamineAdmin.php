@@ -33,6 +33,16 @@ if (isset($_REQUEST['Kustuta'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+/* Laulude kustutamine */
+if (isset($_REQUEST['KustutaLaul'])) {
+    $paring = $yhendus->prepare(
+            "DELETE from laulud where id = ? "
+    );
+    $paring->bind_param('i', $_REQUEST['KustutaLaul']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -62,6 +72,7 @@ if (isset($_REQUEST['Kustuta'])) {
         <th>Kommentaarid</th>
         <th>Kustuta kommentaarid</th>
         <th>Peida/Näita</th>
+        <th>Kustuta laul</th>
     </tr>
 
 <?php
@@ -94,6 +105,8 @@ while ($paring->fetch()) {
         $tekstLehel = "Nähtav";
     }
     echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstLehel</td>";
+
+    echo "<td><a href='?KustutaLaul=$id'>Kustuta laul</a></td>";
 
     echo "</tr>";
 }
