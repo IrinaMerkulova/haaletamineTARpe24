@@ -42,6 +42,16 @@ if(isset($_REQUEST['kustuta'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+// kommentaari kustutamine
+if(isset($_REQUEST['kustuta_kommentaar_id'])){
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid = '' WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['kustuta_kommentaar_id']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -71,6 +81,7 @@ if(isset($_REQUEST['kustuta'])){
         <th>Lisamisaeg</th>
         <th>Peida/näitam</th>
         <th>Laulu kustutamine</th>
+        <th>Kommentaari kustutamine</th>
     </tr>
 
 <?php
@@ -100,8 +111,8 @@ while ($paring->fetch()) {
         $tekstlehel="Nähtav";
     }
     echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstlehel</td>";
-    echo  "<td><a href='?kustuta=$id'>Kustuta</a></td>";
-
+    echo "<td><a href='?kustuta=$id'>Kustuta</a></td>";
+    echo "<td><a href='?kustuta_kommentaar_id=$id'>Kustuta kommentaar</a></td>";
     echo "</tr>";
 }
 ?>
