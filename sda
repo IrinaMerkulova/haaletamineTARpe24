@@ -1,0 +1,1 @@
+https://georgeteemus24.thkit.ee/phpindex/context/haaletamineTARpe24/haaletamine.php
