@@ -61,11 +61,17 @@ if (
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
-    
+    <link rel="stylesheet" href="tabeliStyle.css">
 </head>
 <body>
 
 <h1>🎵 Laulude hääletus</h1>
+<nav>
+    <ul>
+        <li><a href="haaletamine.php">Kasutaja leht</a></li>
+        <li><a href="haaletamineAdmin.php">Admini leht</a></li>
+    </ul>
+</nav>
 
 <table>
     <tr>
@@ -75,16 +81,16 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>Peida/Näita</th>
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg
-     FROM laulud
-     WHERE avalik = 1"
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+     FROM laulud"
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
 );
 $paring->execute();
 
@@ -96,6 +102,15 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    $tekst = "Näita";
+    $seisund = "naita_id";
+    $tekstlehel = "Peidetud";
+    if ($avalik == 1) {
+        $tekst = "Peida";
+        $seisund = "peida_id";
+        $tekstlehel = "Nähtav";
+    }
+    echo "<td><a href='?$seisund=$id'>$tekst</a> | $tekstlehel</td>";
     echo "</tr>";
 }
 ?>

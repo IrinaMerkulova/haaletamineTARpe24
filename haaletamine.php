@@ -39,11 +39,17 @@ if (
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
-    
+    <link rel="stylesheet" href="tabeliStyle.css">
 </head>
 <body>
 
 <h1>🎵 Laulude hääletus</h1>
+<nav>
+    <ul>
+        <li><a href="haaletamine.php">Kasutaja leht</a></li>
+        <li><a href="haaletamineAdmin.php">Admini leht</a></li>
+    </ul>
+</nav>
 
 <table>
     <tr>
