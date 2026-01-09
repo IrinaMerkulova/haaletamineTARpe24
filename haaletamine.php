@@ -44,7 +44,12 @@ if (
 <body>
 
 <h1>🎵 Laulude hääletus</h1>
-
+<nav>
+    <ul>
+        <li><a href="haaletamine.php">Kasutaja leht</a></li>
+        <li><a href="haaletamineAdmin.php">Admin leht</a></li>
+    </ul>
+</nav>
 <table>
     <tr>
         <th>Laulu nimi</th>
@@ -53,7 +58,6 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
-        <th>Kustuta laul</th>
     </tr>
 
 <?php
@@ -75,7 +79,6 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
-    echo "<td><a href='?kustutalaul=$id'>Kustuta</a></td>";
     echo "</tr>";
 }
 ?>
