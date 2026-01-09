@@ -1,4 +1,5 @@
 <?php
+global $yhendus;
 require ('funktsioonid.php');
 
 if(isset($_REQUEST['kustuta']))
@@ -12,9 +13,13 @@ if(isset($_REQUEST['kustuta']))
 //funktsiooni kutsumine
 if(isset($_REQUEST['lisa1punkt']))
 {
+    $pairing = $yhendus->prepare(
+        "UPDATE laulud SET punktid=+1 WHERE ID =?"
+    );
     lisa1punkt($_REQUEST['lisa1punkt']);
     header("Location: ". $_SERVER['PHP_SELF']);
 }
+
 
 
 //kutsume lisamisfunktsioonid
@@ -40,7 +45,12 @@ if(!empty($_REQUEST['lauluNimi']))
 <body>
 
 <h1>🎵 Laulude hääletus (funktsioonid on eraldi php-s)</h1>
-
+<nav>
+    <ul>
+        <li><a href="haaletamine.php">Kasutaja leht</a></li>
+        <li><a href="haaletamineAdmin.php">Admin leht</a></li>
+    </ul>
+</nav>
 <table>
     <tr>
         <th>Laulu nimi</th>
@@ -62,7 +72,7 @@ if(!empty($_REQUEST['lauluNimi']))
 
 
     <h2>Lisa uus laul</h2>
-    <form action="?" method="post">
+    <form action="?" method="post" id="one">
         <label>Laulu nimi:</label><br>
         <input type="text" name="lauluNimi"><br><br>
 
@@ -73,6 +83,7 @@ if(!empty($_REQUEST['lauluNimi']))
         <textarea name="pilt"></textarea><br><br>
 
         <input type="submit" value="Lisa laul">
+    </form>
 
 
 
