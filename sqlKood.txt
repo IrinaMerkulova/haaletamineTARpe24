@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS laulud (
 );
 
 
-
+-- kommentaaride veerg
+alter table laulud add kommentaarid text default "";
 
 
 
