@@ -81,7 +81,6 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
         <th>Peida</th>
         <th>Näita</th>
     </tr>
@@ -103,7 +102,6 @@ if (
         echo "<td><img alt='albumi pilt' src='" . htmlspecialchars($pilt) . "'></td>";
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
-        echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
 
 
         $tekst = "Näita";
