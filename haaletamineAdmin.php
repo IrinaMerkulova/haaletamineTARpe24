@@ -58,7 +58,7 @@ if(isset($_REQUEST['kustuta_kommentaar_id'])){
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
-    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 

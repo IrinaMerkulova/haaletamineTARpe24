@@ -1,0 +1,80 @@
+body {
+    font-family: Arial;
+    background-color: aliceblue;
+    color: black;
+    margin: 0;
+    padding: 20px;
+}
+h1, h2 {
+    text-align: center;
+    color: darkslateblue;
+}
+
+nav {
+    background-color: lightsteelblue;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    color: navy;
+    font-weight: bold;
+}
+nav a:hover {
+    color: darkred;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-bottom: 30px;
+}
+th {
+    background-color: steelblue;
+    color: white;
+    padding: 10px;
+    border: 1px solid black;
+}
+td {
+    padding: 10px;
+    border: 1px solid black;
+    vertical-align: top;
+}
+a[href*="lisa1punkt"] {
+    color: green;
+    font-weight: bold;
+}
+a[href*="eemalda1punkt"] {
+    color: red;
+    font-weight: bold;
+}
+input[type="submit"] {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+input[type="submit"]:hover {
+    background-color: lightgreen;
+}
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: mintcream;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+}
