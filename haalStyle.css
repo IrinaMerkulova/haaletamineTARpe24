@@ -34,6 +34,11 @@ tr,th,td,a,img,input,label,textarea{
     background-color: white;
 }
 
+img{
+    max-width: 250px;
+    max-height:250px;
+}
+
 li{
     border: 2px solid black;
     background-color: white;

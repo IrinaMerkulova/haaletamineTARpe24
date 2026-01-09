@@ -1,0 +1,1 @@
+https://kaurpakaste24.thkit.ee/harjutused/haaletamine/haaletamineFunktsioonidega.php
