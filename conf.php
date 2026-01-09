@@ -1,7 +1,7 @@
 <?php
 $serverinimi='localhost';
-$kasutajanimi='opilaneStenver';
+$kasutajanimi='arturvartsaba';
 $parool='12345';
-$andmebaasinimi='';
+$andmebaasinimi='arturvartsaba';
 $yhendus=new mysqli($serverinimi, $kasutajanimi, $parool, $andmebaasinimi);
 $yhendus->set_charset("utf8");

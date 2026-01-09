@@ -2,7 +2,7 @@ Kasuta XAMPPis SQL kood:
 
 -- 1. Loo kasutaja
 
-CREATE USER IF NOT EXISTS 'opilane'@'localhost'
+CREATE USER IF NOT EXISTS 'arturvartsaba'@'localhost'
 
 IDENTIFIED BY '12345';
 
