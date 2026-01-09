@@ -64,3 +64,23 @@ form table td
 {
     border-style: none;
 }
+
+ul li
+{
+    padding: 10px;
+}
+ul li a {
+    border: solid 2px black;
+    padding: 4px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+ul li a:hover{
+    font-weight: bold;
+    background-color: grey;
+}
+
+a {
+    text-decoration: none;
+}
