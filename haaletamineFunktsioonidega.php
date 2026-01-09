@@ -1,5 +1,26 @@
 <?php
 require ('funktsioonid.php');
+//kutsume lauluKustutamine
+if(isset($_REQUEST['kustuta'])){
+    lauluKustutamine($_REQUEST['kustuta']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+//funktsiooni kutsumine
+if(isset($_REQUEST['lisa1punkt'])){
+    lisa1punkt($_REQUEST['lisa1punkt']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+//kutsume lisamisfunktsiooni
+if(!empty($_REQUEST['lauluNimi'])){
+    lauluLisamine(
+        $_REQUEST['lauluNimi'], $_REQUEST['laulja'], $_REQUEST['pilt']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
