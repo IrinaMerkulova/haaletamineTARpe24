@@ -33,6 +33,17 @@ if (
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
+if(isset($_REQUEST['peida_id'])){
+    peida_id($_REQUEST['peida_id']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+if(isset($_REQUEST['naita_id'])){
+    naita_id($_REQUEST['naita_id']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
