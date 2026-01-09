@@ -1,5 +1,6 @@
 <?php
 require('conf.php');
+require('funktsioonid.php');
 global $yhendus;
 
 
@@ -34,25 +35,12 @@ if (isset($_REQUEST['naita_id'])) {
     exit;
 }
 
-/* Laulu lisamine */
-if (
-    isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-    !empty($_REQUEST['lauluNimi']) &&
-    !empty($_REQUEST['laulja'])
-) {
-    $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
-    );
-    $paring->bind_param(
-        'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
-    );
-    $paring->execute();
+
+//kutsume lauluKustutamine
+if(isset($_REQUEST['kustuta'])){
+    lauluKustutamine($_REQUEST['kustuta']);
     header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -82,6 +70,7 @@ if (
         <th>Nulli punktid</th>
         <th>Lisamisaeg</th>
         <th>Peida/näitam</th>
+        <th>Laulu kustutamine</th>
     </tr>
 
 <?php
@@ -111,24 +100,13 @@ while ($paring->fetch()) {
         $tekstlehel="Nähtav";
     }
     echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstlehel</td>";
+    echo  "<td><a href='?kustuta=$id'>Kustuta</a></td>";
+
     echo "</tr>";
 }
 ?>
 </table>
 
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
-
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
 
 </body>
 </html>
