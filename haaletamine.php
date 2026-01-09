@@ -44,6 +44,12 @@ if (
 <body>
 
 <h1>🎵 Laulude hääletus</h1>
+<nav>
+    <ul>
+        <li><a href="haaletamine.php">Kasutaja Leht</a></li>
+        <li><a href="haaletamineAdmin.php">Admin Leht</a></li>
+    </ul>
+</nav>
 
 <table>
     <tr>
@@ -70,7 +76,7 @@ while ($paring->fetch()) {
     echo "<tr>";
     echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
     echo "<td>" . htmlspecialchars($laulja) . "</td>";
-    echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
+    echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
