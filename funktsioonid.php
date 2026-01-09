@@ -22,7 +22,14 @@ function kuvaTabeliLauludTava(){
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
         echo "<td><a href='?miinus1punkt=$id'>-1 punkt</a></td>";
-        echo "<td>Kommentaar</td>";
+        echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
+        echo "<td>
+        <form action='?' method='post' id='kommentaarform'>
+            <input type='hidden' name='uus_kommentaar_id' value='$id'>
+            <input type='text' name='uus_kommentaar' id='uus_kommentaar'>
+            <input type='submit' value='OK'>
+        </form>
+    </td>";
         echo "</tr>";
     }
 }
@@ -128,4 +135,18 @@ function naita_id($id){
     );
     $paring->bind_param('i', $id);
     $paring->execute();
+}
+
+// kommentaari tegemine
+
+function kommentaariLisamine(){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid = CONCAT(kommentaarid,?) WHERE id = ?"
+    );
+    $komment2=$_REQUEST['uus_kommentaar']."\n";
+    $paring->bind_param('si', $komment2,$_REQUEST['uus_kommentaar_id']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
 }

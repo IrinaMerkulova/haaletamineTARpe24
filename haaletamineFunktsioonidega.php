@@ -31,6 +31,11 @@ isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
+/* Kommentaari lisamine */
+if (isset($_REQUEST['uus_kommentaar_id'])) {
+    kommentaariLisamine($_REQUEST['uus_kommentaar_id'], $_REQUEST['uus_kommentaar']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
