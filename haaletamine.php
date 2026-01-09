@@ -64,12 +64,12 @@ if (
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
      FROM laulud
      WHERE avalik = 1"
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
 );
 $paring->execute();
 

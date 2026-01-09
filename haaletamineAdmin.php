@@ -81,16 +81,17 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>Peida/Näita</th>
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
      FROM laulud
-     WHERE avalik = 1"
+     "
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
 );
 $paring->execute();
 
@@ -102,6 +103,15 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    $tekst = "Näita";
+    $seisund = "naita_id";
+    $tekstLehel = "Peidetud";
+    if ($avalik == 1) {
+        $tekst = "Peida";
+        $seisund = "peida_id";
+        $tekstLehel = "Nähtav";
+    }
+    echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstLehel</td>";
     echo "</tr>";
 }
 ?>
