@@ -13,6 +13,13 @@ if(isset($_REQUEST['lisa1punkt'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+if(isset($_REQUEST['eemalda1punkt']))
+{
+    eemalda1punkt($_REQUEST['eemalda1punkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+
 
 //kutsume lisamisfunktsiooni
 if(!empty($_REQUEST['lauluNimi'])){
@@ -40,6 +47,7 @@ if(!empty($_REQUEST['lauluNimi'])){
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
     </tr>
     <?php
     kuvaTabeliLaulud();

@@ -2,16 +2,7 @@
 require('conf.php');
 global $yhendus;
 
-/* +1 punkt */
-if (isset($_REQUEST['lisa1punkt'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-}
+
 /* laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {
     $paring = $yhendus->prepare(
@@ -80,7 +71,6 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
         <th>Peida/näitam</th>
     </tr>
 
