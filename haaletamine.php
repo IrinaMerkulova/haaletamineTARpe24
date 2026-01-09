@@ -1,51 +1,44 @@
 <?php
 require('conf.php');
+require('funktsioonid.php');
 global $yhendus;
 
 /* +1 punkt */
-if (isset($_REQUEST['lisa1punkt'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+if(isset($_REQUEST['lisa1punkt']))
+{
+    lisa1punkt($_REQUEST['lisa1punkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
 }
 
-/* Laulu lisamine */
-if (
-    isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-    !empty($_REQUEST['lauluNimi']) &&
-    !empty($_REQUEST['laulja'])
-) {
-    $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
-    );
-    $paring->bind_param(
-        'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
-    );
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+if(isset($_REQUEST['eemalda1punkt']))
+{
+    eemalda1punkt($_REQUEST['eemalda1punkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+
+// kutsume lisamisfunktsiooni
+if(!empty($_REQUEST["lauluNimi"]) && !empty($_REQUEST["laulja"]))
+{
+    lisaLaul($_REQUEST["lauluNimi"], $_REQUEST["laulja"], $_REQUEST["pilt"]);
+    header("Location: ".$_SERVER["PHP_SELF"]);
+    exit();
 }
 
 if (isset($_REQUEST['uus_kommentaar_id']))
 {
+    lisaKommentaar($_REQUEST['uus_kommentaar_id']);
+    /*
     $paring = $yhendus->prepare(
         "UPDATE laulud SET kommentaarid = CONCAT(kommentaarid, ' ', ?) WHERE id = ?"
     );
-    $formatitud_kommentaar = $_REQUEST['uus_kommentaar'];
 
     $paring->bind_param('si',
         $_REQUEST['uus_kommentaar'],
         $_REQUEST['uus_kommentaar_id']
     );
-    $paring->execute();
+    $paring->execute();*/
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
@@ -76,6 +69,7 @@ if (isset($_REQUEST['uus_kommentaar_id']))
         <th>Pilt</th>
         <th>Punktid</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>Kommentaarid</th>
         <th>Kommentaari lisamine</th>
     </tr>
@@ -99,6 +93,7 @@ while ($paring->fetch()) {
     echo "<td><img alt='albumi pilt' src='" . htmlspecialchars($pilt) . "'></td>";
     echo "<td>$punktid</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?eemalda   1punkt=$id'>-1 punkt</a></td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))  ."</td>";
     echo "<td>
 <form action='?' method='post'>

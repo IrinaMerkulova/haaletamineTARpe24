@@ -1,16 +1,31 @@
 <?php
 require('conf.php');
+require('funktsioonid.php');
 global $yhendus;
 
 /* +1 punkt */
-if (isset($_REQUEST['lisa1punkt'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+if(isset($_REQUEST['lisa1punkt']))
+{
+    lisa1punkt($_REQUEST['lisa1punkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+
+/* punktide nulleerimiene */
+
+if(isset($_REQUEST['nulleeripunktid']))
+{
+    nulleeriPunktid($_REQUEST['nulleeripunktid']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+/* kommentaaride nulleerimiene */
+
+if(isset($_REQUEST['kustutakommentaarid']))
+{
+    kustutaKommentaarid($_REQUEST['kustutakommentaarid']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
 }
 
 /* laulu peitmine */
@@ -35,26 +50,15 @@ if (isset($_REQUEST['naita_id'])) {
     exit;
 }
 
-/* Laulu lisamine */
-if (
-    isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-    !empty($_REQUEST['lauluNimi']) &&
-    !empty($_REQUEST['laulja'])
-) {
-    $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
-    );
-    $paring->bind_param(
-        'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
-    );
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+// kutsume kustutamisfunktsiooni
+if(isset($_REQUEST['kustuta']))
+{
+    kustuta($_REQUEST['kustuta']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -80,6 +84,9 @@ if (
         <th>Laulja</th>
         <th>Pilt</th>
         <th>Punktid</th>
+        <th>Nulleeri Punktid</th>
+        <th>Kustuta kommentaarid</th>
+        <th>Eemalda laul</th>
         <th>Lisamisaeg</th>
         <th>Peida</th>
         <th>Näita</th>
@@ -101,6 +108,9 @@ if (
         echo "<td>" . htmlspecialchars($laulja) . "</td>";
         echo "<td><img alt='albumi pilt' src='" . htmlspecialchars($pilt) . "'></td>";
         echo "<td>$punktid</td>";
+        echo "<td><a href='?nulleeripunktid=$id'>Nulleeri punktid</a></td>";
+        echo "<td><a href='?kustutakommentaarid=$id'>Kustuta kommentaarid</a></td>";
+        echo "<td><a href='?kustuta=$id'>Eemalda laul</a></td>";
         echo "<td>$lisamisaeg</td>";
 
 
@@ -118,20 +128,6 @@ if (
     }
     ?>
 </table>
-
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
-
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
 
 </body>
 </html>

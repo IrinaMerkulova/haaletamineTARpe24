@@ -103,3 +103,31 @@ function eemalda1punkt($id)
     $paring->execute();
 
 }
+
+// kommentaaride kustutamine
+function kustutaKommentaarid($id)
+{
+    global $yhendus;
+    /* +1 punkt */
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid = '' WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+
+}
+
+function lisaKommentaar($id)
+{
+    global $yhendus;
+
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid = CONCAT(kommentaarid, ' ', ?) WHERE id = ?"
+    );
+
+    $paring->bind_param('si',
+        $_REQUEST['uus_kommentaar'],
+        $_REQUEST['uus_kommentaar_id']
+    );
+    $paring->execute();
+}
