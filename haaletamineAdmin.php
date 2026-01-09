@@ -93,39 +93,7 @@ if(isset($_REQUEST['kustuta']))
     </tr>
 
     <?php
-    $paring = $yhendus->prepare(
-        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
-     FROM laulud"
-    );
-    $paring->bind_result(
-        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
-    );
-    $paring->execute();
-
-    while ($paring->fetch()) {
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-        echo "<td>" . htmlspecialchars($laulja) . "</td>";
-        echo "<td><img alt='albumi pilt' src='" . htmlspecialchars($pilt) . "'></td>";
-        echo "<td>$punktid</td>";
-        echo "<td><a href='?nulleeripunktid=$id'>Nulleeri punktid</a></td>";
-        echo "<td><a href='?kustutakommentaarid=$id'>Kustuta kommentaarid</a></td>";
-        echo "<td><a href='?kustuta=$id'>Eemalda laul</a></td>";
-        echo "<td>$lisamisaeg</td>";
-
-
-        $tekst = "Näita";
-        $seisund = "naita_id";
-        $tekstlehel = "Peidetud";
-        if ($avalik == 1) {
-            $tekst = "Peida";
-            $seisund = "peida_id";
-            $tekstlehel = "Nähtav";
-        }
-        echo "<td><a href='?$seisund=$id'>$tekst</a>";
-        echo "<td>$tekstlehel</td>";
-        echo "</tr>";
-    }
+    kuvaAdminVaade();
     ?>
 </table>
 
