@@ -23,26 +23,17 @@ if (isset($_REQUEST['naita_id'])) {
     exit;
 }
 
-/* Laulu lisamine */
-if (
-    isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-    !empty($_REQUEST['lauluNimi']) &&
-    !empty($_REQUEST['laulja'])
-) {
+/* Kommentaaride kustutamine */
+if (isset($_REQUEST['Kustuta'])) {
     $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
+            "UPDATE laulud SET kommentaarid = '' where id = ? "
     );
-    $paring->bind_param(
-        'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
-    );
+    $paring->bind_param('i', $_REQUEST['Kustuta']);
     $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -68,17 +59,19 @@ if (
         <th>Laulja</th>
         <th>Laulu nimi</th>
         <th>Pilt</th>
+        <th>Kommentaarid</th>
+        <th>Kustuta kommentaarid</th>
         <th>Peida/Näita</th>
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, lisamisaeg, avalik
+    "SELECT id, lauluNimi, laulja, pilt, lisamisaeg, avalik, kommentaarid
      FROM laulud
      "
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $lisamisaeg, $avalik
+    $id, $lauluNimi, $laulja, $pilt, $lisamisaeg, $avalik, $kommentaarid
 );
 $paring->execute();
 
@@ -88,6 +81,10 @@ while ($paring->fetch()) {
     echo "<td>" . htmlspecialchars($laulja) . "</td>";
     echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
     echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
+    echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
+
+    echo "<td><a href='?Kustuta=$id'>Kustuta</a></td>";
+
     $tekst = "Näita";
     $seisund = "naita_id";
     $tekstLehel = "Peidetud";
@@ -97,24 +94,11 @@ while ($paring->fetch()) {
         $tekstLehel = "Nähtav";
     }
     echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstLehel</td>";
+
     echo "</tr>";
 }
 ?>
 </table>
-
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
-
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
 
 </body>
 </html>
