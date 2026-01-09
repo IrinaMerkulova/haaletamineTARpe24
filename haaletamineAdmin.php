@@ -2,12 +2,12 @@
 require('conf.php');
 global $yhendus;
 
-/* +1 punkt */
-if (isset($_REQUEST['lisa1punkt'])) {
+/* punktide kustutamine */
+if (isset($_REQUEST['kustutapunktid'])) {
     $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
     );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
+    $paring->bind_param('i', $_REQUEST['kustutapunktid']);
     $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
@@ -82,7 +82,7 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
+        <th>Punktide kustutamine</th>
         <th>Peida/Näita</th>
     </tr>
 
@@ -103,7 +103,7 @@ while ($paring->fetch()) {
     echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
-    echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?kustutapunktid=$id'>Kustuta punktid</a></td>";
     $tekst="Näita";
     $seisund="naita_id";
     $tekstlehel="Peidetud";
