@@ -22,6 +22,16 @@ if (isset($_REQUEST['peida_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+/* laulu näitamine */
+if (isset($_REQUEST['naita_id'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET avalik=1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['naita_id']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 
 
 /* Laulu lisamine */
@@ -55,6 +65,12 @@ if (
 <body>
 
 <h1>🎵 Laulude hääletus</h1>
+<nav>
+    <ul>
+        <li><a href="haaletamine.php">kasutaja leht</a></li>
+        <li><a href="haaletamineAdmin.php">admin leht</a></li>
+    </ul>
+</nav>
 
 <table>
     <tr>
@@ -64,16 +80,16 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>peida/näita</th>
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg
-     FROM laulud
-     WHERE avalik = 1"
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+     FROM laulud"
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
 );
 $paring->execute();
 
@@ -85,6 +101,16 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    $tekst='näita';
+    $seisund='naita_id';
+    $tekstlehel='peidetud';
+    if($avalik==1){
+        $tekst='peida';
+        $seisund="peida_id";
+        $tekstlehel="nähtav";
+    }
+
+    echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstlehel </td>";
     echo "</tr>";
 }
 ?>
