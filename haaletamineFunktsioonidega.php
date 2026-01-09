@@ -42,7 +42,12 @@ isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
 <body>
 
 <h1>🎵 Laulude hääletus (funktsioonid on eraldi failis)</h1>
-
+<nav>
+    <ul>
+        <li><a href="haaletamineFunktsioonidega.php">Kasutaja</a></li>
+        <li><a href="haaletamineAdminFunktsioonidega.php">Admin</a></li>
+    </ul>
+</nav>
 <table>
     <tr>
         <th>Laulu nimi</th>
@@ -52,11 +57,10 @@ isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
         <th>-1 punkt</th>
-        <th>Null Punkt</th>
-        <th>Kustuta</th>
+        <th>Kommentaar</th>
     </tr>
     <?php
-    kuvaTabeliLaulud();
+    kuvaTabeliLauludTava();
     ?>
 
 </table>

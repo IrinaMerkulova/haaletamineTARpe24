@@ -1,15 +1,15 @@
 <?php
 require ('conf.php');
 
-function kuvaTabeliLaulud(){
+function kuvaTabeliLauludTava(){
     global $yhendus;
     $paring = $yhendus->prepare(
-        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg
+        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, kommentaarid
      FROM laulud
      WHERE avalik = 1"
     );
     $paring->bind_result(
-        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg
+        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $kommentaarid
     );
     $paring->execute();
 
@@ -22,7 +22,40 @@ function kuvaTabeliLaulud(){
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
         echo "<td><a href='?miinus1punkt=$id'>-1 punkt</a></td>";
+        echo "<td>Kommentaar</td>";
+        echo "</tr>";
+    }
+}
+
+function kuvaTabeliLauludAdmin(){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+     FROM laulud"
+    );
+    $paring->bind_result(
+        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
+    );
+    $paring->execute();
+
+    while ($paring->fetch()) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+        echo "<td>" . htmlspecialchars($laulja) . "</td>";
+        echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
+        echo "<td>$punktid</td>";
+        echo "<td>$lisamisaeg</td>";
+        $tekst="Näita";
+        $seisund="naita_id";
+        $tekstlehel="Peidetud";
+        if($avalik==1){
+            $tekst="Peida";
+            $seisund="peida_id";
+            $tekstlehel="Nähtav";
+        }
+        echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstlehel</td>";
         echo "<td><a href='?nullpunkt=$id'>Null Punkt</a></td>";
+        echo "<td><a href='?deletekomment=$id'>Kustuta Kommentaar</a></td>";
         echo "<td><a href='?delete=$id'>Kustuta</a></td>";
         echo "</tr>";
     }
