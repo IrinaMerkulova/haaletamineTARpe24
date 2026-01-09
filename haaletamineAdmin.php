@@ -24,6 +24,17 @@ if (isset($_REQUEST['peida_id'])) {
     exit;
 }
 
+/* laulu näitamine */
+if (isset($_REQUEST['naita_id'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET avalik=1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['naita_id']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 /* Laulu lisamine */
 if (
     isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
@@ -64,7 +75,8 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
-        <th>peida</th>
+        <th>Peida</th>
+        <th>Näita</th>
     </tr>
 
     <?php
@@ -87,6 +99,7 @@ if (
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
         echo "<td><a href='?peida_id=$id'>Peida</a></td>";
+        echo "<td><a href='?naita_id=$id'>Näita</a></td>";
         echo "</tr>";
     }
     ?>
