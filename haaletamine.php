@@ -44,7 +44,12 @@ if (
 <body>
 
 <h1>🎵 Laulude hääletus</h1>
-
+<nav>
+    <ul>
+        <li><a href="haaletamine.php">Kasutaja leht</a></li>
+        <li><a href="haaletameAdmin.php">Admin leht</a></li>
+    </ul>
+</nav>
 <table>
     <tr>
         <th>Laulu nimi</th>
