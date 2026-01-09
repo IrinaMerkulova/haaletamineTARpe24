@@ -47,7 +47,7 @@ if(!empty($_REQUEST['lauluNimi']))
 <h1>🎵 Laulude hääletus (funktsioonid on eraldi php-s)</h1>
 <nav>
     <ul>
-        <li><a href="haaletamine.php">Kasutaja leht</a></li>
+        <li><a href="haaletamineFunktsioonidega.php">Kasutaja leht</a></li>
         <li><a href="haaletamineAdmin.php">Admin leht</a></li>
     </ul>
 </nav>
