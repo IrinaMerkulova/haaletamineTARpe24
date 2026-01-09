@@ -13,6 +13,17 @@ if (isset($_REQUEST['kustutapunktid'])) {
     exit;
 }
 
+/* kommentaaride kustutamine */
+if (isset($_REQUEST['kustutakommentaar'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid = '' WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['kustutakommentaar']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 /* laulu peitmine*/
 if (isset($_REQUEST['peida_id'])) {
     $paring = $yhendus->prepare(
@@ -83,16 +94,18 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>Punktide kustutamine</th>
+        <th>Kommentaarid</th>
+        <th>Kommentaaride kustutamine</th>
         <th>Peida/Näita</th>
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, kommentaarid, avalik
      FROM laulud"
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $kommentaarid, $avalik
 );
 $paring->execute();
 
@@ -104,6 +117,8 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?kustutapunktid=$id'>Kustuta punktid</a></td>";
+    echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
+    echo "<td><a href='?kustutakommentaar=$id'>Kustuta kommentaarid</a></td>";
     $tekst="Näita";
     $seisund="naita_id";
     $tekstlehel="Peidetud";
