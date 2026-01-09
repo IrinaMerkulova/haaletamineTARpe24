@@ -12,6 +12,18 @@ if (isset($_REQUEST['peida_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
+/* 0 punkt */
+if (isset($_REQUEST['nullidaPunktid'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['nullidaPunktid']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 /* laulu näitamine */
 if (isset($_REQUEST['naita_id'])) {
     $paring = $yhendus->prepare(
@@ -69,7 +81,9 @@ if (isset($_REQUEST['KustutaLaul'])) {
         <th>Laulja</th>
         <th>Laulu nimi</th>
         <th>Pilt</th>
+        <th>Punktid</th>
         <th>Kommentaarid</th>
+        <th>Nullida punktid</th>
         <th>Kustuta kommentaarid</th>
         <th>Peida/Näita</th>
         <th>Kustuta laul</th>
@@ -77,12 +91,12 @@ if (isset($_REQUEST['KustutaLaul'])) {
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, lisamisaeg, avalik, kommentaarid
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik, kommentaarid
      FROM laulud
      "
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $lisamisaeg, $avalik, $kommentaarid
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik, $kommentaarid
 );
 $paring->execute();
 
@@ -92,7 +106,10 @@ while ($paring->fetch()) {
     echo "<td>" . htmlspecialchars($laulja) . "</td>";
     echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
     echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
+    echo "<td>$punktid</td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
+
+    echo "<td><a href='?nullidaPunktid=$id'>Nullida punktid</a></td>";
 
     echo "<td><a href='?Kustuta=$id'>Kustuta</a></td>";
 
