@@ -67,36 +67,7 @@ if (
     </tr>
 
 <?php
-$paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik, kommentaarid
-     FROM laulud
-     WHERE avalik = 1"
-);
-$paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik, $kommentaarid
-);
-$paring->execute();
-
-while ($paring->fetch()) {
-    echo "<tr>";
-    echo "<td>$lisamisaeg</td>";
-    echo "<td>" . htmlspecialchars($laulja) . "</td>";
-    echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-    echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
-    echo "<td>$punktid</td>";
-    echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
-    echo "<td><a href='?kustuta1punkt=$id'>-1 punkt</a></td>";
-    echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
-    echo "<td>
-<form action='?' method='post'>
-<input type='hidden' name='uus_kommentaar_id' value='$id'>
-<input type='text' name='uus_kommentaar' id='uus_kommentaar'>
-<input type='submit' value='Ok'>
-</form>
-</td>";
-    echo "</tr>";
-
-}
+tabeliKuvamine();
 ?>
 </table>
 
