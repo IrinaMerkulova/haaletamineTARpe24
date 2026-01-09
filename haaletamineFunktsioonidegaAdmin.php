@@ -36,9 +36,22 @@ if (isset($_REQUEST['lahuta1punkt']))
     lahuta1Punkt($_REQUEST['lahuta1punkt']);
 }
 
+// peida laul
+if (isset($_REQUEST['peida_id']))
+{
+    peidaLaul($_REQUEST['peida_id']);
+}
 
-if (isset($_REQUEST['uus_kommentaar_id'])) {
-    lisaKommentaar($_REQUEST['uus_kommentaar'], $_REQUEST['uus_kommentaar_id']);
+// näita laulu
+if (isset($_REQUEST['naita_id']))
+{
+    naitaLaul($_REQUEST['naita_id']);
+}
+
+//kustuta kommentaar
+if (isset($_REQUEST['kustutakommentaarid']))
+{
+    kustutaKommentaarid($_REQUEST['kustutakommentaarid']);
 }
 ?>
 
@@ -65,28 +78,15 @@ if (isset($_REQUEST['uus_kommentaar_id'])) {
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
-        <th>-1 punkt</th>
+        <th>Kustuta laul</th>
         <th>Kommentaarid</th>
-        <th>Lisa kommentaar</th>
+        <th>Kustuta kommentaarid</th>
+        <th>Peida/näita</th>
+        <th>Eemalda punktid</th>
     </tr>
     <?php
-    kuvaTabeliLauludKasutaja();
+    kuvaTabeliLauludAdmin();
     ?>
 </table>
-
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
-
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
 </body>
 </html>
