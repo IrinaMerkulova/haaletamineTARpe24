@@ -46,22 +46,12 @@ if (isset($_REQUEST['naita_id'])) {
     exit;
 }
 
-/* Laulu lisamine */
-if (
-    isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-    !empty($_REQUEST['lauluNimi']) &&
-    !empty($_REQUEST['laulja'])
-) {
+/* laulu kustutamine */
+if (isset($_REQUEST['kustutalaul'])) {
     $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
+        "DELETE FROM laulud WHERE id = ?"
     );
-    $paring->bind_param(
-        'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
-    );
+    $paring->bind_param('i', $_REQUEST['kustutalaul']);
     $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
@@ -96,6 +86,7 @@ if (
         <th>Punktide kustutamine</th>
         <th>Kommentaarid</th>
         <th>Kommentaaride kustutamine</th>
+        <th>Laulu kustutamine</th>
         <th>Peida/Näita</th>
     </tr>
 
@@ -119,6 +110,7 @@ while ($paring->fetch()) {
     echo "<td><a href='?kustutapunktid=$id'>Kustuta punktid</a></td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
     echo "<td><a href='?kustutakommentaar=$id'>Kustuta kommentaarid</a></td>";
+    echo "<td><a href='?kustutalaul=$id'>Kustuta laul</a></td>";
     $tekst="Näita";
     $seisund="naita_id";
     $tekstlehel="Peidetud";
