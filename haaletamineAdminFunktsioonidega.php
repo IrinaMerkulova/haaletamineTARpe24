@@ -69,8 +69,8 @@ if (
 <h1>Admini Paneel (Funktsioonidega)</h1>
 <nav>
     <ul>
-        <li><a href="haaletamine.php">Kasutaja</a></li>
-        <li><a href="haaletamineAdmin.php">Admin</a></li>
+        <li><a href="haaletamineFunktsioonidega.php">Kasutaja</a></li>
+        <li><a href="haaletamineAdminFunktsioonidega.php">Admin</a></li>
     </ul>
 </nav>
 
