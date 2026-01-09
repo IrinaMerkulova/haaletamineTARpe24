@@ -3,7 +3,7 @@ require ('funktsioonid.php');
 
 //kutsume lauuluKustutamine
 if(!empty($_REQUEST['kustuta'])){
-    kustuta($_REQUEST['kustuta']);
+    lauluKustutamine($_REQUEST['kustuta']);
     header("Location:". $_SERVER['PHP_SELF']);
     exit();
 }
