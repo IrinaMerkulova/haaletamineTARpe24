@@ -1,5 +1,6 @@
 <?php
-require('funktsioonid.php');
+
+require('funktsioonidAdmin.php');
 global $yhendus;
 
 //kutsume lauluKustutamine
@@ -9,40 +10,9 @@ if(!empty($_REQUEST['kustuta'])){
     exit();
 }
 
-// punkti lisamis funktsiooni kutsumine
-if(isset($_REQUEST['lisa1punkt'])){
-    lisa1punkt($_REQUEST['lisa1punkt']);
-    header("Location:". $_SERVER['PHP_SELF']);
-    exit();
-}
-
-//punkti eemaldamis funktsiooni kutsumine
-if(isset($_REQUEST['eemalda1punkt'])) {
-    eemalda1punkt($_REQUEST['eemalda1punkt']);
-    header("Location:" . $_SERVER['PHP_SELF']);
-    exit();
-}
-
-//kutsume lisamisfunktsiooni
-    if (
-        isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-        !empty($_REQUEST['lauluNimi']) &&
-        !empty($_REQUEST['laulja'])
-    ) {
-        lauluLisamine($_REQUEST['lauluNimi'], $_REQUEST['laulja'], $_REQUEST['pilt']);
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    }
-
-    //kutsume punktid0 funktsiooni
+//kutsume nullimine
 if(isset($_REQUEST['nullpunkt'])) {
     nullpunkt($_REQUEST['nullpunkt']);
-    header("Location:" . $_SERVER['PHP_SELF']);
-    exit();
-}
-
-if(isset($_REQUEST['kommentaariLisamine'])) {
-    kommentaariLisamine($_REQUEST['kommentaariLisamine']);
     header("Location:" . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -58,7 +28,6 @@ if (isset($_REQUEST['uus_kommentaar_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -88,7 +57,7 @@ if (isset($_REQUEST['uus_kommentaar_id'])) {
         <th>-1 punkt</th>
         <th>0punkt</th>
         <th>kustuta</th>
-        <th>kommentaar</th>
+        <th>kommentaarid</th>
     </tr>
 
 <?php

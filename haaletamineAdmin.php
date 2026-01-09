@@ -12,6 +12,16 @@ if (isset($_REQUEST['lisa1punkt'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+/* +1 punkt */
+if (isset($_REQUEST['eemalda1punkt'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['eemalda1punkt']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 
 /* Laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {
