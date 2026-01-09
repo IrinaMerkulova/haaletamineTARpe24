@@ -1,0 +1,1 @@
+https://arturvartsaba24.thkit.ee/phpIndex/content/haaletamine/haaletamine.php
