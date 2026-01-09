@@ -1,0 +1,40 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    background-color: powderblue;
+}
+
+h1{
+    text-align: center;
+    background-color: cadetblue;
+}
+
+table, th, td{
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+th{
+    text-align: center;
+    background-color: cadetblue;
+}
+
+td{
+    background-color: lightgray;
+}
+
+input[type=text] {
+    border: 2px solid darkslateblue;
+    border-radius: 8px;
+}
+
+input[type=submit] {
+    border: 2px solid darkslateblue;
+    background-color: lightseagreen;
+    color: white;
+}
+
+textarea{
+    border: 2px solid darkslateblue;
+    border-radius: 8px;
+}
