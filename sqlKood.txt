@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS laulud (
     lisamisaeg DATETIME
 );
 
-
+ALTER TABLE laulud ADD kommentaarid TEXT Default "";
 
 
 
