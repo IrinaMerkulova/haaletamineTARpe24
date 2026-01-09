@@ -37,11 +37,11 @@ function kuvaTabeliLauludTava(){
 function kuvaTabeliLauludAdmin(){
     global $yhendus;
     $paring = $yhendus->prepare(
-        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik, kommentaarid
      FROM laulud"
     );
     $paring->bind_result(
-        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
+        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik, $kommentaarid
     );
     $paring->execute();
 
@@ -52,6 +52,7 @@ function kuvaTabeliLauludAdmin(){
         echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
+        echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
         $tekst="Näita";
         $seisund="naita_id";
         $tekstlehel="Peidetud";
@@ -147,6 +148,14 @@ function kommentaariLisamine(){
     $komment2=$_REQUEST['uus_kommentaar']."\n";
     $paring->bind_param('si', $komment2,$_REQUEST['uus_kommentaar_id']);
     $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+}
+
+// Kommentaari kustutamine
+function deletekomment($id){
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid = '' WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
 }

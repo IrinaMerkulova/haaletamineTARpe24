@@ -44,6 +44,12 @@ if(isset($_REQUEST['naita_id'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
+if(isset($_REQUEST['deletekomment'])){
+    deletekomment($_REQUEST['deletekomment']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -69,6 +75,7 @@ if(isset($_REQUEST['naita_id'])){
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
+        <th>Kommentaarid</th>
         <th>Nähtavus</th>
         <th>Null Punkt</th>
         <th>Kustuta Kommentaar</th>
