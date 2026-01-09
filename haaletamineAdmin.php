@@ -1,5 +1,6 @@
 <?php
 require ('funktsioonid.php');
+global $yhendus;
 
 /* laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {

@@ -1,5 +1,7 @@
 <?php
 require ('funktsioonid.php');
+global $yhendus;
+
 
 /* +1 punkt */
 if (isset($_REQUEST['lisa1punkt'])) {
