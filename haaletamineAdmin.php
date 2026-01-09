@@ -1,33 +1,58 @@
 <?php
 require('conf.php');
 global $yhendus;
-// funktsiooni kutsumine
-if(isset($_REQUEST['lisa1punkt'])){
-    lisa1punkt($_REQUEST['lisa1punkt']);
+
+
+/* +1 punkt */
+if (isset($_REQUEST['lisa1punkt'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
+    $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-if(isset($_REQUEST['miinus1punkt'])){
-    miinus1punkt($_REQUEST['miinus1punkt']);
+
+/* laulu peitmine */
+if (isset($_REQUEST['peida_id'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET avalik = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['peida_id']);
+    $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-if(isset($_REQUEST['nullpunkt'])){
-    nullpunkt($_REQUEST['nullpunkt']);
+
+/* laulu näitamine */
+if (isset($_REQUEST['naita_id'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET avalik = 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['naita_id']);
+    $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-if(isset($_REQUEST['delete'])){
-    delete($_REQUEST['delete']);
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-}
+
+/* Laulu lisamine */
 if (
     isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
     !empty($_REQUEST['lauluNimi']) &&
     !empty($_REQUEST['laulja'])
 ) {
-    lauluLisamine($_REQUEST['lauluNimi'], $_REQUEST['laulja'], $_REQUEST['pilt']);
+    $paring = $yhendus->prepare(
+        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
+         VALUES (?, ?, ?, 1, NOW())"
+    );
+    $paring->bind_param(
+        'sss',
+        $_REQUEST['lauluNimi'],
+        $_REQUEST['laulja'],
+        $_REQUEST['pilt']
+    );
+    $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
