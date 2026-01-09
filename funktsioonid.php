@@ -48,6 +48,7 @@ function lauluKustutamine($id)
     $paring->bind_param('i', $id);
     $paring->execute();
 }
+
 /* Laulu lisamine */
 function lauluLisamine($lauluNimi, $laulja, $pilt){
     global $yhendus;

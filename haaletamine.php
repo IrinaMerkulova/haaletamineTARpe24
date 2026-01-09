@@ -1,36 +1,57 @@
 <?php
-require('conf.php');
+require 'conf.php';
 global $yhendus;
 
 /* +1 punkt */
-if (isset($_REQUEST['lisa1punkt'])) {
-    $paring = $yhendus->prepare(
+if (isset($_GET['lisa1punkt'])) {
+    $stmt = $yhendus->prepare(
         "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
     );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
+    $stmt->bind_param('i', $_GET['lisa1punkt']);
+    $stmt->execute();
+    header("Location: ".$_SERVER['PHP_SELF']);
     exit;
 }
 
-/* Laulu lisamine */
-if (
-    isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-    !empty($_REQUEST['lauluNimi']) &&
-    !empty($_REQUEST['laulja'])
-) {
-    $paring = $yhendus->prepare(
+/* -1 punkt */
+if (isset($_GET['vahenda1punkt'])) {
+    $stmt = $yhendus->prepare(
+        "UPDATE laulud SET punktid = GREATEST(punktid - 1, 0) WHERE id = ?"
+    );
+    $stmt->bind_param('i', $_GET['vahenda1punkt']);
+    $stmt->execute();
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit;
+}
+
+/* Kommentaari lisamine */
+if (isset($_POST['uus_kommentaar_id'], $_POST['uus_kommentaar'])) {
+    $stmt = $yhendus->prepare(
+        "UPDATE laulud 
+         SET kommentaarid = CONCAT(IFNULL(kommentaarid,''), ?) 
+         WHERE id = ?"
+    );
+    $kommentaar = $_POST['uus_kommentaar']."\n";
+    $stmt->bind_param('si', $kommentaar, $_POST['uus_kommentaar_id']);
+    $stmt->execute();
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit;
+}
+
+/* Uue laulu lisamine */
+if (!empty($_POST['lauluNimi']) && !empty($_POST['laulja'])) {
+    $stmt = $yhendus->prepare(
         "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
          VALUES (?, ?, ?, 1, NOW())"
     );
-    $paring->bind_param(
+    $stmt->bind_param(
         'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
+        $_POST['lauluNimi'],
+        $_POST['laulja'],
+        $_POST['pilt']
     );
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
+    $stmt->execute();
+    header("Location: ".$_SERVER['PHP_SELF']);
     exit;
 }
 ?>
@@ -38,12 +59,13 @@ if (
 <html lang="et">
 <head>
     <meta charset="UTF-8">
-    <title>Laulude leht</title>
-    
+    <title>Kasutaja – Laulude hääletus</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h1>🎵 Laulude hääletus</h1>
+
 <nav>
     <ul>
         <li><a href="haaletamine.php">Kasutaja Leht</a></li>
@@ -57,44 +79,56 @@ if (
         <th>Laulja</th>
         <th>Pilt</th>
         <th>Punktid</th>
-        <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
+        <th>Hääletus</th>
+        <th>Kommentaarid</th>
+        <th>Lisa kommentaar</th>
     </tr>
 
-<?php
-$paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg
+    <?php
+    $stmt = $yhendus->prepare(
+        "SELECT id, lauluNimi, laulja, pilt, punktid, kommentaarid
      FROM laulud
      WHERE avalik = 1"
-);
-$paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg
-);
-$paring->execute();
+    );
+    $stmt->execute();
+    $stmt->bind_result(
+        $id, $lauluNimi, $laulja, $pilt, $punktid, $kommentaarid
+    );
 
-while ($paring->fetch()) {
-    echo "<tr>";
-    echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-    echo "<td>" . htmlspecialchars($laulja) . "</td>";
-    echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
-    echo "<td>$punktid</td>";
-    echo "<td>$lisamisaeg</td>";
-    echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
-    echo "</tr>";
-}
-?>
+    while ($stmt->fetch()):
+        ?>
+        <tr>
+            <td><?= htmlspecialchars($lauluNimi) ?></td>
+            <td><?= htmlspecialchars($laulja) ?></td>
+            <td><img src="<?= htmlspecialchars($pilt) ?>" alt="pilt"></td>
+            <td><?= $punktid ?></td>
+            <td>
+                <a href="?lisa1punkt=<?= $id ?>">+1</a> |
+                <a href="?vahenda1punkt=<?= $id ?>">−1</a>
+            </td>
+            <td><?= nl2br(htmlspecialchars($kommentaarid)) ?></td>
+            <td>
+                <form method="post" style="box-shadow:none;">
+                    <input type="hidden" name="uus_kommentaar_id" value="<?= $id ?>">
+                    <input type="text" name="uus_kommentaar">
+                    <input type="submit" value="OK">
+                </form>
+            </td>
+        </tr>
+    <?php endwhile; ?>
 </table>
 
 <h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
 
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
+<form method="post">
+    <label>Laulu nimi</label>
+    <input type="text" name="lauluNimi">
 
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
+    <label>Laulja</label>
+    <input type="text" name="laulja">
+
+    <label>Pildi URL</label>
+    <textarea name="pilt"></textarea>
 
     <input type="submit" value="Lisa laul">
 </form>
