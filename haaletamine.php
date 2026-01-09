@@ -12,6 +12,20 @@ if (isset($_REQUEST['lisa1punkt'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+if (isset($_REQUEST['eemalda1puntk'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['eemalda1puntk']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+if (isset($_REQUEST['eemalda1puntk'])) {
+    eemalda1puntk($_REQUEST['eemalda1puntk']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 /* kommentaari lisamine */
 if (isset($_REQUEST['uus_kommentaar_id'])) {
     $paring = $yhendus->prepare(
@@ -50,6 +64,7 @@ if (
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
+    <link rel="stylesheet" href="kujndus.css">
     
 </head>
 <body>
@@ -68,6 +83,7 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>Kommentaarid</th>
     </tr>
 
@@ -90,6 +106,7 @@ while ($paring->fetch()) {
     echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
     echo "<td>$punktid</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?eemalda1puntk=$id'>-1 punkt</a></td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
     echo "<td>
 <form action='?' method='post'>

@@ -38,6 +38,7 @@ if (isset($_REQUEST['nullpunkt'])) {
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
+    <link rel="stylesheet" href="kujndus.css">
 
 </head>
 <body>

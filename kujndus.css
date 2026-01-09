@@ -1,0 +1,303 @@
+/* Üldine kujundus */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+h2 {
+    color: white;
+    margin: 30px 0 20px 0;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+/* Navigatsioon */
+nav {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #667eea;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+nav ul li a:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Tabel */
+table {
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-collapse: collapse;
+}
+
+th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+tr:hover {
+    background: #f8f9ff;
+    transition: background 0.3s ease;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Pildid tabelis */
+td img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    object-fit: cover;
+}
+
+/* Lingid tabelis */
+td a {
+    text-decoration: none;
+    color: white;
+    background: #667eea;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+td a:hover {
+    background: #764ba2;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Erinev värv erinevate nuppude jaoks */
+td a[href*='lisa1punkt'] {
+    background: #10b981;
+}
+
+td a[href*='lisa1punkt']:hover {
+    background: #059669;
+}
+
+td a[href*='eemalda'] {
+    background: #f59e0b;
+}
+
+td a[href*='eemalda']:hover {
+    background: #d97706;
+}
+
+td a[href*='kustuta'] {
+    background: #ef4444;
+}
+
+td a[href*='kustuta']:hover {
+    background: #dc2626;
+}
+
+td a[href*='nullpunkt'], td a[href*='punktnull'] {
+    background: #6b7280;
+}
+
+td a[href*='nullpunkt']:hover, td a[href*='punktnull']:hover {
+    background: #4b5563;
+}
+
+td a[href*='peida'] {
+    background: #8b5cf6;
+}
+
+td a[href*='peida']:hover {
+    background: #7c3aed;
+}
+
+td a[href*='naita'] {
+    background: #06b6d4;
+}
+
+td a[href*='naita']:hover {
+    background: #0891b2;
+}
+
+/* Vorm */
+form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Kommentaaride vorm tabelis */
+td form {
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    display: flex;
+    gap: 5px;
+}
+
+td form input[type="text"] {
+    flex: 1;
+    padding: 8px;
+}
+
+td form input[type="submit"] {
+    padding: 8px 15px;
+    margin: 0;
+}
+
+/* Responsive disain */
+@media (max-width: 1200px) {
+    table {
+        font-size: 0.9em;
+    }
+
+    td img {
+        max-width: 80px;
+        max-height: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    table {
+        font-size: 0.8em;
+    }
+
+    th, td {
+        padding: 10px 5px;
+    }
+
+    td img {
+        max-width: 60px;
+        max-height: 60px;
+    }
+
+    td a {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    form {
+        padding: 20px;
+    }
+}
+
+/* Punktide veerg */
+td:nth-child(4), td:nth-child(5) {
+    font-weight: bold;
+    color: #667eea;
+}
