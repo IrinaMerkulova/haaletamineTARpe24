@@ -35,6 +35,37 @@ if (isset($_REQUEST['naita_id'])) {
     exit;
 }
 
+if (isset($_REQUEST['punktidNull'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid=0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['punktidNull']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+if (isset($_REQUEST['uus_kommentaar_id'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid='' WHERE id = ?"
+    );
+
+    $paring->bind_param('i', $_REQUEST['uus_kommentaar_id']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+if (isset($_REQUEST['kustutaLaul'])) {
+    $paring = $yhendus->prepare(
+        "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['kustutaLaul']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 /* Laulu lisamine */
 if (
     isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
@@ -72,7 +103,7 @@ if (
         <li><a href="haaletamineAdmin.php">Admini leht</a></li>
     </ul>
 </nav>
-
+<br>
 <table>
     <tr>
         <th>Laulu nimi</th>
@@ -80,17 +111,20 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
+        <th>Punktid nulli</th>
+        <th>Kommentaarid</th>
+        <th>Kustuta kommentaarid</th>
         <th>Peida/Näita</th>
+        <th>Kustuta Laul</th>
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik, kommentaarid
      FROM laulud"
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik, $kommentaarid
 );
 $paring->execute();
 
@@ -101,7 +135,7 @@ while ($paring->fetch()) {
     echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
-    echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?punktidNull=$id'>Punktid nulli</a></td>";
     $tekst = "Näita";
     $seisund = "naita_id";
     $tekstlehel = "Peidetud";
@@ -110,25 +144,16 @@ while ($paring->fetch()) {
         $seisund = "peida_id";
         $tekstlehel = "Nähtav";
     }
+    echo "<td>" .nl2br(htmlspecialchars($kommentaarid))."</td>";
+    echo "<td><a href='?uus_kommentaar_id=$id'>Kustuta komentaarid</a></td>";
     echo "<td><a href='?$seisund=$id'>$tekst</a> | $tekstlehel</td>";
+    echo "<td><a href='?kustutaLaul=$id'>Kustuta laul</a></td>";
     echo "</tr>";
 }
 ?>
 </table>
 
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
 
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
 
 </body>
 </html>
