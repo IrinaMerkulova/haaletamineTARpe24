@@ -124,7 +124,7 @@ function lauluLisamine($lauluNimi, $laulja, $pilt){
 }
 
 // peitmine ja näitamine
-function peida_id($id){
+function peida_id(){
     global $yhendus;
     $paring = $yhendus->prepare(
         "UPDATE laulud SET avalik = 0 WHERE id = ?"
@@ -133,12 +133,12 @@ function peida_id($id){
     $paring->execute();
 }
 
-function naita_id($id){
+function naita_id(){
     global $yhendus;
     $paring = $yhendus->prepare(
         "UPDATE laulud SET avalik = 1 WHERE id = ?"
     );
-    $paring->bind_param('i', $id);
+    $paring->bind_param('i', $_REQUEST['naita_id']);
     $paring->execute();
 }
 
