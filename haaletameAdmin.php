@@ -13,7 +13,8 @@ if (isset($_REQUEST['peida_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-//Kutsume Laulukustutamise
+
+/* Kutsume Laulukustutamise */
 if(isset($_REQUEST['kustuta'])){
     lauluKustutamine($_REQUEST['kustuta']);
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -26,6 +27,18 @@ if(isset($_REQUEST['kustutaKoikPunktid'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
+
+/* kommentaari kustutamine */
+if (isset($_REQUEST['uus_kommentaar_id'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid='' WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['uus_kommentaar_id']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 /* laulu näitamine */
 if (isset($_REQUEST['naita_id'])) {
     $paring = $yhendus->prepare(
@@ -36,27 +49,17 @@ if (isset($_REQUEST['naita_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-/* kommentaari kustutamine */
-if (isset($_REQUEST['uus_kommentaar_id']) && isset($_REQUEST['DELETE'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET kommentaarid='' WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['uus_kommentaar_id']);
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="et">
 <head>
     <meta charset="UTF-8">
-    <title>Laulude leht</title>
-    
+    <title>Laulude leht - Admin</title>
+    <link rel="stylesheet" href="stylelikeaboss.css">
 </head>
 <body>
 
-<h1>🎵 Laulude hääletus</h1>
+<h1>🎵 Laulude hääletus - ADMIN</h1>
 <nav>
     <ul>
         <li><a href="haaletamine.php">Kasutaja leht</a></li>
@@ -69,54 +72,56 @@ if (isset($_REQUEST['uus_kommentaar_id']) && isset($_REQUEST['DELETE'])) {
         <th>Laulja</th>
         <th>Pilt</th>
         <th>Punktid</th>
+        <th>Nullida punktid</th>
         <th>Lisamisaeg</th>
-        <th>Kustuta</th>
+        <th>Kustuta laul</th>
         <th>Peida/Näita</th>
-
-
+        <th>Kommentaarid</th>
+        <th>Kustuta kommentaarid</th>
     </tr>
 
-<?php
-$paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik,kommentaarid
+    <?php
+    $paring = $yhendus->prepare(
+        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik, kommentaarid
      FROM laulud"
+    );
 
-);
-//lulu kustutamine
+    $paring->bind_result(
+        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik, $kommentaarid
+    );
+    $paring->execute();
 
-$paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik,$kommentaarid
-);
-$paring->execute();
+    while ($paring->fetch()) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+        echo "<td>" . htmlspecialchars($laulja) . "</td>";
+        echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='Laulu pilt'></td>";
+        echo "<td>$punktid</td>";
+        echo "<td><a href='?kustutaKoikPunktid=$id'>Kustuta kõik punktid</a></td>";
+        echo "<td>$lisamisaeg</td>";
 
-while ($paring->fetch()) {
-    echo "<tr>";
-    echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-    echo "<td>" . htmlspecialchars($laulja) . "</td>";
-    echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
-    echo "<td>$punktid</td>";
-    echo "<td><a href='?kustutaKoikPunktid=$id'>Kustuta Kõik punktid</a></td>";
-    echo "<td>$lisamisaeg</td>";
-    $tekst="Näita";
-    $seisund="naita_id";
-    $tekstlehed="Peidetud";
-    if($avalik==1){
-        $tekst="Peida";
-        $seisund="peida_id";
-        $tekstlehed="Nähtav";
+        $tekst = "Näita";
+        $seisund = "naita_id";
+        $tekstlehed = "Peidetud";
+        if($avalik == 1){
+            $tekst = "Peida";
+            $seisund = "peida_id";
+            $tekstlehed = "Nähtav";
+        }
+
+        echo "<td><a href='?kustuta=$id'>Kustuta laul</a></td>";
+        echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstlehed</td>";
+        echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
+        echo "<td>
+        <form action='?' method='post'>
+            <input type='hidden' name='uus_kommentaar_id' value='$id'>
+            <input type='submit' value='KUSTUTA'>
+        </form>
+    </td>";
+        echo "</tr>";
     }
-    echo "<td><a href='?kustuta=$id'>kustuta</a></td>";
-    echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstlehed  </td>";
-    echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
-    echo "<td>
-<form action='?' method='post'>
-<input type='hidden' name='uus_kommentaar_id' value='$id'>
-<input type='submit' value='DELETE'>
-</form>
-</td>";
+    ?>
+</table>
 
-    echo "</tr>";
-}
-?>
 </body>
 </html>
