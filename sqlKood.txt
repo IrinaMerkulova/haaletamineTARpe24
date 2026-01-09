@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS laulud (
     pilt TEXT,
     lisamisaeg DATETIME
 );
+ALTER TABLE laulud ADD kommentaarid TEXT DEFAULT "";
 
 
 
