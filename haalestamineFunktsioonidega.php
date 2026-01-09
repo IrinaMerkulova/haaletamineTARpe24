@@ -6,12 +6,7 @@ if(isset($_REQUEST['lisa1punkt'])){
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
-//Kutsume Laulukustutamise
-if(isset($_REQUEST['kustuta'])){
-    lauluKustutamine($_REQUEST['kustuta']);
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
+
 if(isset($_REQUEST['kustutaKoikPunktid'])){
     kustutaKoikPunktid($_REQUEST['kustutaKoikPunktid']);
     header("Location: " . $_SERVER['PHP_SELF']);

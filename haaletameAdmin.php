@@ -1,17 +1,8 @@
 <?php
 require('conf.php');
+require('funktsioonid.php');
 global $yhendus;
 
-/* +1 punkt */
-if (isset($_REQUEST['lisa1punkt'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-}
 /* laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {
     $paring = $yhendus->prepare(
@@ -21,6 +12,19 @@ if (isset($_REQUEST['peida_id'])) {
     $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
+}
+//Kutsume Laulukustutamise
+if(isset($_REQUEST['kustuta'])){
+    lauluKustutamine($_REQUEST['kustuta']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+/* kustuta kõik punktid */
+if(isset($_REQUEST['kustutaKoikPunktid'])){
+    kustutaKoikPunktid($_REQUEST['kustutaKoikPunktid']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 }
 /* laulu näitamine */
 if (isset($_REQUEST['naita_id'])) {
@@ -32,23 +36,12 @@ if (isset($_REQUEST['naita_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-
-/* Laulu lisamine */
-if (
-    isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
-    !empty($_REQUEST['lauluNimi']) &&
-    !empty($_REQUEST['laulja'])
-) {
+/* kommentaari kustutamine */
+if (isset($_REQUEST['uus_kommentaar_id']) && isset($_REQUEST['DELETE'])) {
     $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
+        "UPDATE laulud SET kommentaarid='' WHERE id = ?"
     );
-    $paring->bind_param(
-        'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
-    );
+    $paring->bind_param('i', $_REQUEST['uus_kommentaar_id']);
     $paring->execute();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
@@ -77,18 +70,22 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
+        <th>Kustuta</th>
         <th>Peida/Näita</th>
+
+
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik,kommentaarid
      FROM laulud"
 
 );
+//lulu kustutamine
+
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
+    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik,$kommentaarid
 );
 $paring->execute();
 
@@ -98,8 +95,8 @@ while ($paring->fetch()) {
     echo "<td>" . htmlspecialchars($laulja) . "</td>";
     echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
     echo "<td>$punktid</td>";
+    echo "<td><a href='?kustutaKoikPunktid=$id'>Kustuta Kõik punktid</a></td>";
     echo "<td>$lisamisaeg</td>";
-    echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
     $tekst="Näita";
     $seisund="naita_id";
     $tekstlehed="Peidetud";
@@ -108,25 +105,18 @@ while ($paring->fetch()) {
         $seisund="peida_id";
         $tekstlehed="Nähtav";
     }
+    echo "<td><a href='?kustuta=$id'>kustuta</a></td>";
     echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstlehed  </td>";
+    echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
+    echo "<td>
+<form action='?' method='post'>
+<input type='hidden' name='uus_kommentaar_id' value='$id'>
+<input type='submit' value='DELETE'>
+</form>
+</td>";
+
     echo "</tr>";
 }
 ?>
-</table>
-
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
-
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
-
 </body>
 </html>
