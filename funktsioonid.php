@@ -50,7 +50,14 @@ function eemalda1punkt($id){
     $paring->bind_param('i', $id);
     $paring->execute();
     }
-
+function nullpunkt($id){
+    global $yhendus;
+        $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+    }
 
 /* Laulu lisamine */
 function lauluLisamine($lauluNimi, $laulja, $pilt) {

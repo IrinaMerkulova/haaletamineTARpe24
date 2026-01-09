@@ -3,6 +3,15 @@ require('conf.php');
 global $yhendus;
 
 
+if(isset($_REQUEST['nullpunkt'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['nullpunkt']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 /* laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {
     $paring = $yhendus->prepare(
@@ -70,6 +79,7 @@ if (
         <th>Laulja</th>
         <th>Pilt</th>
         <th>Punktid</th>
+        <th>Nulli punktid</th>
         <th>Lisamisaeg</th>
         <th>Peida/näitam</th>
     </tr>
@@ -90,8 +100,8 @@ while ($paring->fetch()) {
     echo "<td>" . htmlspecialchars($laulja ?? '') . "</td>";
     echo "<td><img src='" . htmlspecialchars($pilt ?? '') . "'></td>";
     echo "<td>$punktid</td>";
+    echo "<td><a href='?nullpunkt=$id'>Nulli punktid</a></td>";
     echo "<td>$lisamisaeg</td>";
-    echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
         $tekst="Näita";
     $seisund="naita_id";
     $tekstlehel="Peidetud";

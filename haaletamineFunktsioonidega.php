@@ -19,7 +19,17 @@ if(isset($_REQUEST['eemalda1punkt']))
     header("Location: ".$_SERVER['PHP_SELF']);
     exit();
 }
-
+if(isset($_REQUEST['nullpunkt']))
+{
+    nullpunkt($_REQUEST['nullpunkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+{
+    eemalda1punkt($_REQUEST['eemalda1punkt']);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
 
 //kutsume lisamisfunktsiooni
 if(!empty($_REQUEST['lauluNimi'])){
