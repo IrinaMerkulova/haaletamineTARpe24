@@ -26,6 +26,10 @@ tr,th,td{
     background-color: white;
 }
 
-tr,th,td,a,img{
+tr,th,td,a,img,input,label,textarea{
+    background-color: white;
+}
+
+#kommentaarform{
     background-color: white;
 }

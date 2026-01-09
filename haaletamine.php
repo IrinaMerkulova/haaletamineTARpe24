@@ -92,7 +92,7 @@ while ($paring->fetch()) {
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
     echo "<td>
-        <form action='?' method='post'>
+        <form action='?' method='post' id='kommentaarform'>
             <input type='hidden' name='uus_kommentaar_id' value='$id'>
             <input type='text' name='uus_kommentaar' id='uus_kommentaar'>
             <input type='submit' value='OK'>
