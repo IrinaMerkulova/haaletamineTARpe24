@@ -1,5 +1,6 @@
 <?php
 require('conf.php');
+require ('funktsioonid.php');
 global $yhendus;
 
 
@@ -76,33 +77,7 @@ if (isset($_REQUEST['naita_id'])) {
     </tr>
 
 <?php
-$paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg,avalik FROM laulud " );
-
-
-$paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg,$avalik
-);
-$paring->execute();
-
-while ($paring->fetch()) {
-    echo "<tr>";
-    echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-    echo "<td>" . htmlspecialchars($laulja) . "</td>";
-    echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
-    echo "<td>$punktid</td>";
-    echo "<td>$lisamisaeg</td>";
-    $tekst="Näita";
-    $seisund="naita_id";
-    $tekstlehel="Peidetud";
-    if($avalik==1) {
-        $tekst="Peida";
-        $seisund="peida_id";
-        $tekstlehel="Nähtav";
-        echo "<td><a href='?$seisund=$id'>$tekst</a> | $tekstlehel</td>";
-        echo "</tr>";
-    }
-}
+kuvaTabelidLaulud();
 ?>
 </table>
 
