@@ -2,7 +2,7 @@ Kasuta XAMPPis SQL kood:
 
 -- 1. Loo kasutaja
 
-CREATE USER IF NOT EXISTS 'opilane'@'localhost'
+CREATE USER IF NOT EXISTS 'opilaneArtur'@'localhost'
 
 IDENTIFIED BY '12345';
 
@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS laulud (
     pilt TEXT,
     lisamisaeg DATETIME
 );
+
+alter table laulud add column kommentaarid TEXT DEFAULT " ";
 
 
 
