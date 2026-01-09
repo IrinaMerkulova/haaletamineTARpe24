@@ -2,17 +2,6 @@
 require('conf.php');
 global $yhendus;
 
-/* +1 punkt */
-if (isset($_REQUEST['lisa1punkt'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
-    $paring->execute();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-}
-
 /* laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {
     $paring = $yhendus->prepare(
@@ -75,34 +64,30 @@ if (
 
 <table>
     <tr>
-        <th>Laulu nimi</th>
-        <th>Laulja</th>
-        <th>Pilt</th>
-        <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
+        <th>Laulja</th>
+        <th>Laulu nimi</th>
+        <th>Pilt</th>
         <th>Peida/Näita</th>
     </tr>
 
 <?php
 $paring = $yhendus->prepare(
-    "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik
+    "SELECT id, lauluNimi, laulja, pilt, lisamisaeg, avalik
      FROM laulud
      "
 );
 $paring->bind_result(
-    $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik
+    $id, $lauluNimi, $laulja, $pilt, $lisamisaeg, $avalik
 );
 $paring->execute();
 
 while ($paring->fetch()) {
     echo "<tr>";
-    echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-    echo "<td>" . htmlspecialchars($laulja) . "</td>";
-    echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
-    echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
-    echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td>" . htmlspecialchars($laulja) . "</td>";
+    echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+    echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
     $tekst = "Näita";
     $seisund = "naita_id";
     $tekstLehel = "Peidetud";
