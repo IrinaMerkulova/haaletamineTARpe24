@@ -1,0 +1,1 @@
+https://juhanheinlaid24.thkit.ee/harjutused/phpIndex/content/haaletamineTARpe24/haaletamine.php
