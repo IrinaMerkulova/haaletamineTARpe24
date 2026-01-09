@@ -81,6 +81,49 @@ function lauluLisamine($lauluNimi, $laulja, $pilt) {
 }
 
 /* Admin */
+
+/* Tabeli kuvamine */
+function tabeliKuvamineAdmin() {
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, avalik, kommentaarid
+     FROM laulud
+     "
+    );
+    $paring->bind_result(
+        $id, $lauluNimi, $laulja, $pilt, $punktid, $lisamisaeg, $avalik, $kommentaarid
+    );
+    $paring->execute();
+
+    while ($paring->fetch()) {
+        echo "<tr>";
+        echo "<td>$lisamisaeg</td>";
+        echo "<td>" . htmlspecialchars($laulja) . "</td>";
+        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+        echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
+        echo "<td>$punktid</td>";
+        echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
+
+        echo "<td><a href='?nullidaPunktid=$id'>Nullida punktid</a></td>";
+
+        echo "<td><a href='?Kustuta=$id'>Kustuta</a></td>";
+
+        $tekst = "Näita";
+        $seisund = "naita_id";
+        $tekstLehel = "Peidetud";
+        if ($avalik == 1) {
+            $tekst = "Peida";
+            $seisund = "peida_id";
+            $tekstLehel = "Nähtav";
+        }
+        echo "<td><a href='?$seisund=$id'>$tekst</a> ||| $tekstLehel</td>";
+
+        echo "<td><a href='?KustutaLaul=$id'>Kustuta laul</a></td>";
+
+        echo "</tr>";
+    }
+}
+
 /* Laulu peitmine */
 function lauluPeitmine() {
     global $yhendus;
