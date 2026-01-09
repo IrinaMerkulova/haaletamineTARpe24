@@ -1,0 +1,1 @@
+https://rasmuskunnus24.thkit.ee/harjutused/php/content/haaletamine/haaletamineFunktsioonidega.php
