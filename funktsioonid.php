@@ -15,11 +15,13 @@ function kuvaTabeliLauludTava(){
 
     while ($paring->fetch()) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+        echo "<td>$lisamisaeg</td>";
         echo "<td>" . htmlspecialchars($laulja) . "</td>";
+        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+
         echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
         echo "<td>$punktid</td>";
-        echo "<td>$lisamisaeg</td>";
+
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
         echo "<td><a href='?miinus1punkt=$id'>-1 punkt</a></td>";
         echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
@@ -47,11 +49,13 @@ function kuvaTabeliLauludAdmin(){
 
     while ($paring->fetch()) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+        echo "<td>$lisamisaeg</td>";
         echo "<td>" . htmlspecialchars($laulja) . "</td>";
+        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+
         echo "<td><img src='" . htmlspecialchars($pilt) . "' alt='pilt'></td>";
         echo "<td>$punktid</td>";
-        echo "<td>$lisamisaeg</td>";
+
         echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
         $tekst="Näita";
         $seisund="naita_id";

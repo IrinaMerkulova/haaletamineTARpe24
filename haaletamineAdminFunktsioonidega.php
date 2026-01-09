@@ -70,11 +70,11 @@ if(isset($_REQUEST['deletekomment'])){
 
 <table>
     <tr>
-        <th>Laulu nimi</th>
+        <th>Lisamisaeg</th>
         <th>Laulja</th>
+        <th>Laulu nimi</th>
         <th>Pilt</th>
         <th>Punktid</th>
-        <th>Lisamisaeg</th>
         <th>Kommentaarid</th>
         <th>Nähtavus</th>
         <th>Null Punkt</th>

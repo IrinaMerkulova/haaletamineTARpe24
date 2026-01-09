@@ -55,14 +55,17 @@ if (isset($_REQUEST['uus_kommentaar_id'])) {
 </nav>
 <table>
     <tr>
-        <th>Laulu nimi</th>
+        <th>Lisamisaeg</th>
         <th>Laulja</th>
+        <th>Laulu nimi</th>
+
         <th>Pilt</th>
         <th>Punktid</th>
-        <th>Lisamisaeg</th>
+
         <th>+1 punkt</th>
         <th>-1 punkt</th>
-        <th>Kommentaar</th>
+        <th>Kommentaarid</th>
+        <th>Kommentaari lisamine</th>
     </tr>
     <?php
     kuvaTabeliLauludTava();
