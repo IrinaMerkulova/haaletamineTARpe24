@@ -12,6 +12,39 @@ if (isset($_REQUEST['lisa1punkt'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
+/* laulu kustutamine */
+if (isset($_REQUEST['kustutaLaul'])) {
+    $paring = $yhendus->prepare(
+        "DELETE from laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['kustutaLaul']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+/* kustuta kommentaarid */
+if (isset($_REQUEST['kustutaKomment'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET kommentaarid = '0' WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['kustutaKomment']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+if (isset($_REQUEST['punktNulliks'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['punktNulliks']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 /* laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {
     $paring = $yhendus->prepare(
@@ -61,6 +94,7 @@ if (
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
+    <link rel="stylesheet" href="haaletamineAdminStyle.css">
     
 </head>
 <body>
@@ -80,7 +114,9 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
+        <th>Nulli punktid</th>
+        <th>Kustuta komment</th>
+        <th>Kustuta laul</th>
         <th>Peida/näita</th>
     </tr>
 
@@ -101,6 +137,9 @@ while ($paring->fetch()) {
     echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
+    echo "<td><a href='?punktNulliks=$id'>0 punkt</a></td>";
+    echo "<td><a href='?kustutaKomment=$id'>Kustuta komment</a></td>";
+    echo "<td><a href='?kustutaLaul=$id'>Kustuta laul</a></td>";
     $tekst = "Näita";
     $seisund="naita_id";
     $tekstlehel="Peidetud";
@@ -115,19 +154,7 @@ while ($paring->fetch()) {
 ?>
 </table>
 
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
 
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
 
 </body>
 </html>

@@ -13,6 +13,16 @@ if (isset($_REQUEST['lisa1punkt'])) {
     exit;
 }
 
+if (isset($_REQUEST['kustuta1punkt'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['kustuta1punkt']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 /* kommentaari lisamine */
 if (isset($_REQUEST['uus_kommentaar_id'])) {
     $paring = $yhendus->prepare(
@@ -51,6 +61,7 @@ if (
 <head>
     <meta charset="UTF-8">
     <title>Laulude leht</title>
+    <link rel="stylesheet" href="haaletamineStyle.css">
     
 </head>
 <body>
@@ -71,6 +82,7 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
     </tr>
 
 <?php
@@ -94,7 +106,7 @@ while ($paring->fetch()) {
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
     echo "<td><a href='?kustuta1punkt=$id'>-1 punkt</a></td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
-    echo "<td><form action='?' method='post'><input type='hidden' name='uus_kommentaar_id' value='$id'><input type='text' name='uus_kommentaar' id='uus_kommentaar'><input type='submit' value='OK'></form></td>";
+    echo "<td><form action='?' method='post'><input type='hidden' name='uus_kommentaar_id' value='$id'><input type='text' name='uus_kommentaar' id='uus_kommentaar' placeholder='Komment siia'><input type='submit' value='OK'></form></td>";
 
     echo "</tr>";
 }
