@@ -1,37 +1,23 @@
 <?php
-require('conf.php');
-global $yhendus;
+require ('funktsioonid.php');
 
 /* +1 punkt */
 if (isset($_REQUEST['lisa1punkt'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['lisa1punkt']);
-    $paring->execute();
+    lisa1punkt($_REQUEST['lisa1punkt']);
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
-/* +1 punkt */
+/* -1 punkt */
 if (isset($_REQUEST['kustuta1punkt'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['kustuta1punkt']);
-    $paring->execute();
+    kustuta1punkt($_REQUEST['kustuta1punkt']);
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
 /* uue kommentaari lisamine */
 if (isset($_REQUEST['uus_kommentaar_id'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET kommentaarid = CONCAT(kommentaarid, ?) WHERE id = ?"
-    );
-    $komment2 = $_REQUEST['uus_kommentaar']."\n";
-    $paring->bind_param('si', $komment2, $_REQUEST['uus_kommentaar_id']);
-    $paring->execute();
+    uusKommentaar();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
@@ -42,17 +28,7 @@ if (
     !empty($_REQUEST['lauluNimi']) &&
     !empty($_REQUEST['laulja'])
 ) {
-    $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
-    );
-    $paring->bind_param(
-        'sss',
-        $_REQUEST['lauluNimi'],
-        $_REQUEST['laulja'],
-        $_REQUEST['pilt']
-    );
-    $paring->execute();
+    lauluLisamine($_REQUEST['lauluNimi'], $_REQUEST['laulja'], $_REQUEST['pilt']);
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }

@@ -1,57 +1,36 @@
 <?php
-require('conf.php');
-global $yhendus;
+require ('funktsioonid.php');
 
 /* laulu peitmine */
 if (isset($_REQUEST['peida_id'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET avalik = 0 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['peida_id']);
-    $paring->execute();
+    lauluPeitmine();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
 /* 0 punkt */
 if (isset($_REQUEST['nullidaPunktid'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET punktid = 0 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['nullidaPunktid']);
-    $paring->execute();
+    nullidaPunktid();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
 /* laulu näitamine */
 if (isset($_REQUEST['naita_id'])) {
-    $paring = $yhendus->prepare(
-        "UPDATE laulud SET avalik = 1 WHERE id = ?"
-    );
-    $paring->bind_param('i', $_REQUEST['naita_id']);
-    $paring->execute();
+    lauluNäitamine();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 
 /* Kommentaaride kustutamine */
 if (isset($_REQUEST['Kustuta'])) {
-    $paring = $yhendus->prepare(
-            "UPDATE laulud SET kommentaarid = '' where id = ? "
-    );
-    $paring->bind_param('i', $_REQUEST['Kustuta']);
-    $paring->execute();
+    kommentaarideKustutamine();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
 /* Laulude kustutamine */
 if (isset($_REQUEST['KustutaLaul'])) {
-    $paring = $yhendus->prepare(
-            "DELETE from laulud where id = ? "
-    );
-    $paring->bind_param('i', $_REQUEST['KustutaLaul']);
-    $paring->execute();
+    lauludeKustutamine();
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
