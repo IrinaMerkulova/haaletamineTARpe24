@@ -24,7 +24,6 @@ function kuvaTabeliLaulud(){
         echo "<td>$lisamisaeg</td>";
         echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
         echo "<td><a href='?eemalda1punkt=$id'>-1 punkt</a></td>";
-        echo "<td><a href='?nullpunkt=$id'>uuenda</a></td>";
         echo "<td><a href='?kustuta=$id'>kustuta</a></td>";
         echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
         echo "<td>
@@ -47,7 +46,6 @@ function lisa1punkt($id){
     $paring->bind_param('i', $id);
     $paring->execute();
 }
-
 
 //punkti eemaldamise funktsioon
 function eemalda1punkt($id){

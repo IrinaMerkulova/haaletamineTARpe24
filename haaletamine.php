@@ -1,9 +1,10 @@
 <?php
+require('funktsioonid.php');
 require('conf.php');
 global $yhendus;
 
 
-/* +1 punkt */
+/* +1 punkt*/
 if (isset($_REQUEST['lisa1punkt'])) {
     $paring = $yhendus->prepare(
         "UPDATE laulud SET punktid = punktid + 1 WHERE id = ?"
@@ -14,8 +15,27 @@ if (isset($_REQUEST['lisa1punkt'])) {
     exit;
 }
 
+/* -1 punkt*/
+if (isset($_REQUEST['eemalda1punkt'])) {
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
+    );
+    $paring->bind_param('i', $_REQUEST['eemalda1punkt']);
+    $paring->execute();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 
-/* kommentaari lisamine */
+if (isset($_REQUEST['nullpunkt'])) {
+    global $yhendus;
+    $paring = $yhendus->prepare(
+        "UPDATE laulud SET punktid = 0 WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+}
+
+/* kommentaari lisamine*/
 if (isset($_REQUEST['uus_kommentaar_id'])) {
     $paring = $yhendus->prepare(
         "UPDATE laulud SET kommentaarid = CONCAT(kommentaarid, ?) WHERE id = ?"
@@ -26,9 +46,17 @@ if (isset($_REQUEST['uus_kommentaar_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+//kustutamine
+if (isset($_REQUEST['kustuta']))
+{
+    $paring = $yhendus->prepare(
+        "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+}
 
-
-/* Laulu lisamine */
+/* Laulu lisamine*/
 if (
     isset($_REQUEST['lauluNimi'], $_REQUEST['laulja']) &&
     !empty($_REQUEST['lauluNimi']) &&
@@ -48,8 +76,8 @@ if (
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="et">
@@ -76,11 +104,14 @@ if (
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>kommentaarid</th>
         <th>Kommentaari lisamine</th>
     </tr>
 
 <?php
+
+
 $paring = $yhendus->prepare(
     "SELECT id, lauluNimi, laulja, pilt, punktid, lisamisaeg, kommentaarid
      FROM laulud
@@ -99,6 +130,8 @@ while ($paring->fetch()) {
     echo "<td>$punktid</td>";
     echo "<td>$lisamisaeg</td>";
     echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+    echo "<td><a href='?eemalda1punkt=$id'>-1 punkt</a></td>";
+    echo "<td><a href='?nullpunkt=$id'>-1 punkt</a></td>";
     echo "<td>".nl2br(htmlspecialchars($kommentaarid))."</td>";
     echo "<td>
     <form action='?' method='post'>

@@ -12,7 +12,7 @@ if (isset($_REQUEST['lisa1punkt'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-/* +1 punkt */
+/* -1 punkt */
 if (isset($_REQUEST['eemalda1punkt'])) {
     $paring = $yhendus->prepare(
         "UPDATE laulud SET punktid = punktid - 1 WHERE id = ?"
@@ -44,6 +44,24 @@ if (isset($_REQUEST['naita_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+
+//kutsume nullimine
+if(isset($_REQUEST['nullpunkt'])) {
+    nullpunkt($_REQUEST['nullpunkt']);
+    header("Location:" . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+//kustutamine
+if (isset($_REQUEST['kustuta']))
+{
+    $paring = $yhendus->prepare(
+        "DELETE FROM laulud WHERE id = ?"
+    );
+    $paring->bind_param('i', $id);
+    $paring->execute();
+}
+
 
 /* Laulu lisamine */
 if (
@@ -90,7 +108,7 @@ if (
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
-        <th>+1 punkt</th>
+        <th>0punkt</th>
         <th>Peida/Näita</th>
     </tr>
 
@@ -112,7 +130,7 @@ if (
         echo "<td><img src='" . htmlspecialchars($pilt) . "'></td>";
         echo "<td>$punktid</td>";
         echo "<td>$lisamisaeg</td>";
-        echo "<td><a href='?lisa1punkt=$id'>+1 punkt</a></td>";
+        echo "<td><a href='?nullpunkt=$id'>0 punkt</a></td>";
         $tekst = "Näita";
         $seisund = "naita_id";
         $tekstlehel="peidetud";
