@@ -20,6 +20,15 @@ if(isset($_REQUEST['lisa1punkt']))
     header("Location: ". $_SERVER['PHP_SELF']);
 }
 
+if(isset($_REQUEST['eemalda1punkt']))
+{
+    $pairing = $yhendus->prepare(
+        "UPDATE laulud SET punktid = punktid - 1 WHERE id = ? AND punktid > 0"
+    );
+    eemalda1punkt($_REQUEST['eemalda1punkt']);
+    header("Location: ". $_SERVER['PHP_SELF']);
+}
+
 
 
 //kutsume lisamisfunktsioonid
@@ -29,7 +38,15 @@ if(!empty($_REQUEST['lauluNimi']))
     header("Location: ". $_SERVER['PHP_SELF']);
 }
 
+if (isset($_REQUEST['uus_kommentaar_id'])) {
+    kommentaariLisamine($_REQUEST['uus_kommentaar_id'], $_REQUEST['uus_kommentaar']);
+}
 ?>
+
+
+
+
+
 
 
 
@@ -59,7 +76,9 @@ if(!empty($_REQUEST['lauluNimi']))
         <th>Punktid</th>
         <th>Lisamisaeg</th>
         <th>+1 punkt</th>
+        <th>-1 punkt</th>
         <th>Kommentaarid</th>
+        <th>Kommentaari lisamine</th
 
 
 
@@ -67,7 +86,6 @@ if(!empty($_REQUEST['lauluNimi']))
 
     <?php
     kuvaTabelidLaulud();
-    lisa1punkt(0);
     ?>
 </table>
 

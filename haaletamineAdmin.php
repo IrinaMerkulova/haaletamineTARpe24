@@ -47,6 +47,24 @@ if (isset($_REQUEST['naita_id'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
+if(isset($_REQUEST['deletekomment'])){
+    deletekomment($_REQUEST['deletekomment']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+IF(isset($_REQUEST['delete'])){
+    delete($_REQUEST['delete']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+if(isset($_REQUEST['teePunkt0']))
+{
+    teePunkt0($_REQUEST['teePunkt0']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -58,7 +76,7 @@ if (isset($_REQUEST['naita_id'])) {
 </head>
 <body>
 
-<h1>🎵 Laulude hääletus</h1>
+<h1>🎵 Laulude hääletus ADMIN (funktsioonid eraldi)</h1>
 <nav>
     <ul>
         <li><a href="haaletamineFunktsioonidega.php">Kasutaja leht</a></li>
@@ -73,6 +91,7 @@ if (isset($_REQUEST['naita_id'])) {
         <th>Pilt</th>
         <th>Punktid</th>
         <th>Lisamisaeg</th>
+        <th>Kommentaarid</th>
         <th>Peida/Näida</th>
     </tr>
 
@@ -81,19 +100,7 @@ kuvaTabelidLauludAdmin();
 ?>
 </table>
 
-<h2>Lisa uus laul</h2>
-<form action="?" method="post">
-    <label>Laulu nimi:</label><br>
-    <input type="text" name="lauluNimi"><br><br>
 
-    <label>Laulja:</label><br>
-    <input type="text" name="laulja"><br><br>
-
-    <label>Pildi URL:</label><br>
-    <textarea name="pilt"></textarea><br><br>
-
-    <input type="submit" value="Lisa laul">
-</form>
 
 </body>
 </html>
