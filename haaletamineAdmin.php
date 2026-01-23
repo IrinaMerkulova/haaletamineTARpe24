@@ -33,7 +33,7 @@ if(isset($_REQUEST['naita'])){
 </head>
 <body>
 
-<h1>Laulude hääletuse tume turg //////</h1>
+<h1>Laulude hääletuse tume turg ////// ADMINNI PANEEL</h1>
 
 <table>
     <tr>

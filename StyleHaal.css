@@ -5,6 +5,22 @@ h1 {
     font-family: Consolas;
     color: lawngreen;
 }
+h2 {
+    font-family: Consolas;
+    color: lawngreen;
+}
+label {
+    font-family: Consolas;
+    color: lawngreen;
+}
+input {
+    font-family: Consolas;
+    background-color: darkgreen;
+}
+textarea {
+    font-family: Consolas;
+    background-color: darkgreen;
+}
 th {
     font-family: consolas;
    color: lawngreen; 

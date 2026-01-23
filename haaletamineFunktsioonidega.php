@@ -24,12 +24,13 @@ if(!empty($_REQUEST['lauluNimi'])){
 <!DOCTYPE html>
 <html lang="et">
 <head>
+    <link rel="stylesheet" href="StyleHaal.css">
     <meta charset="UTF-8">
     <title>Laulude leht</title>
 </head>
 <body>
 
-<h1>🎵 Laulude hääletus 🎵</h1>
+<h1>Laulude hääletuse tume turg ////// KASUTAJA PANEEL</h1>
 
 <table>
     <tr>
@@ -60,4 +61,11 @@ if(!empty($_REQUEST['lauluNimi'])){
     <input type="submit" value="Lisa laul">
 </form>
 </body>
+<div class="binary-wrap">
+    <div class="binary-line">1010101010101010010101010101010101010101010101010101010101010101</div>
+    <div class="binary-line">0101010101010101101010101010101010101010101010101010101010101010</div>
+    <div class="binary-line">1010010101010101010101010101010101010101010101010101010101010101</div>
+    <div class="binary-line">0101011010101010101010101010101010101010101010101010101010101010</div>
+    <div class="binary-line">1010101010100101010101010101010101010101010101010101010101010101</div>
+</div>
 </html>
