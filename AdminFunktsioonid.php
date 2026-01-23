@@ -19,32 +19,21 @@ function AdminkuvaTabeliLaulud()
 
     while ($paring->fetch()) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-        echo "<td>" . htmlspecialchars($laulja) . "</td>";
-        echo "<td><img src='" . htmlspecialchars($pilt) . "'alt='pilt'></td>";
-        echo "<td>$punktid</td>";
-        echo "<td>$lisamisaeg</td>";
-        echo "<td><a href='?nullipunktid=$id'>Nulli punktid</a></td>";
-        echo "<td><a href='?kustuta=$id'>Eemalda</a></td>";
-        echo "<td><a href='?peida=$id'>Peida</a></td>";
-        echo "<td><a href='?naita=$id'>Näita</a></td>";
+        echo "<td>"  . htmlspecialchars($lauluNimi) .  "</td>";
+        echo "<td>"  . htmlspecialchars($laulja) .  "</td>";
+        echo "<td><img src='"  . htmlspecialchars($pilt) .  "'alt='pilt'></td>";
+        echo "<td> $punktid </td>";
+        echo "<td> $lisamisaeg </td>";
+        echo "<td><a href='?nullipunktid=$id'> Nulli punktid </a></td>";
+        echo "<td><a href='?kustuta=$id'> Eemalda </a></td>";
+        echo "<td><a href='?peida=$id'> Peida </a></td>";
+        echo "<td><a href='?naita=$id'> Näita </a></td>";
         echo "</tr>";
 
 
     }
 }
 
-function lauluLisamine($lauluNimi, $laulja, $pilt){
-    global $yhendus;
-    $paring = $yhendus->prepare(
-        "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
-         VALUES (?, ?, ?, 1, NOW())"
-    );
-    $paring->bind_param(
-        'sss', $lauluNimi, $laulja, $pilt
-    );
-    $paring->execute();
-}
 function eemaldaLaul($id){
     global $yhendus;
     $paring = $yhendus->prepare(
