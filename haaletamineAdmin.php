@@ -32,6 +32,11 @@ if(isset($_REQUEST['naita'])){
 
 </head>
 <body>
+<nav>
+    <ul>
+        <a href="haaletamineFunktsioonidega.php">Tavaline vaade</a>
+    </ul>
+</nav>
 
 <h1>Laulude hääletuse tume turg ////// ADMINNI PANEEL</h1>
 

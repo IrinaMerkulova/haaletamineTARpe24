@@ -29,6 +29,11 @@ if(!empty($_REQUEST['lauluNimi'])){
     <title>Laulude leht</title>
 </head>
 <body>
+<nav>
+    <ul>
+        <a href="haaletamineAdmin.php">Admin vaade</a>
+    </ul>
+</nav>
 
 <h1>Laulude hääletuse tume turg ////// KASUTAJA PANEEL</h1>
 
