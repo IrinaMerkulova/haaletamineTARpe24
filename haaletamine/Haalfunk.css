@@ -1,0 +1,72 @@
+nav {
+    background-color: cornflowerblue;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+}
+h1, h2 {
+    text-align: center;
+    color: darkblue;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+nav a {
+    color: black;
+    font-weight: bold;
+}
+nav a:hover {
+    color: darkblue;
+}
+input[type="submit"]:hover {
+    background-color: darkgreen;
+}
+input[type="submit"] {
+     background-color: green;
+     color: white;
+     border: none;
+     padding: 6px 12px;
+     border-radius: 4px;
+     cursor: pointer;
+     font-weight: bold;
+ }
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: cornflowerblue;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-bottom: 30px;
+}
+a[href*="lisa1punkt"] {
+    color: green;
+    font-weight: bold;
+}
+a[href*="eemalda1punkt"] {
+    color: red;
+    font-weight: bold;
+}
+th {
+    background-color: cornflowerblue;
+    color: black;
+    padding: 10px;
+    border: 1px solid black;
+}
+td {
+    padding: 10px;
+    border: 1px solid black;
+    vertical-align: top;
+}

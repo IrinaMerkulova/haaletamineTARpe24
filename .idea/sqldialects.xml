@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_PLUGINS_DIR$/laravel-idea/lib/laravel-idea-12.2.1.253.jar!/laravel-idea-library/xampp/php/pear/adodb/session/adodb-sessions.mysql.sql" dialect="GenericSQL" />
+    <file url="file://$APPLICATION_PLUGINS_DIR$/laravel-idea/lib/laravel-idea-12.2.1.253.jar!/laravel-idea-library/xampp/php/pear/adodb/session/adodb-sessions.oracle.clob.sql" dialect="GenericSQL" />
+    <file url="file://$APPLICATION_PLUGINS_DIR$/laravel-idea/lib/laravel-idea-12.2.1.253.jar!/laravel-idea-library/xampp/php/pear/adodb/session/adodb-sessions.oracle.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/.idea/queries/Query.sql" dialect="MariaDB" />
+  </component>
+</project>

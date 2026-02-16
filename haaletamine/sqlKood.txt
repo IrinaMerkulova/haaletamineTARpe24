@@ -1,0 +1,52 @@
+Kasuta XAMPPis SQL kood:
+
+-- 1. Loo kasutaja
+
+CREATE USER IF NOT EXISTS 'opilaneAiron'@'localhost'
+
+IDENTIFIED BY '12345';
+
+
+
+-- 2. Loo andmebaas
+
+CREATE DATABASE IF NOT EXISTS haal
+
+CHARACTER SET utf8mb4
+
+COLLATE utf8mb4_estonian_ci;
+
+
+
+-- 3. Anna õigused kasutajale opilane
+
+GRANT ALL PRIVILEGES ON haal.* TO 'opilaneAiron'@'localhost';
+
+FLUSH PRIVILEGES;
+
+
+
+-- 4. Kasuta andmebaasi
+
+USE haal;
+
+
+
+-- 5. Loo tabel laulud
+
+CREATE TABLE IF NOT EXISTS laulud (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    lauluNimi VARCHAR(100) NOT NULL,
+    laulja VARCHAR(100) NOT NULL,
+    avalik BOOLEAN DEFAULT 0,
+    punktid INT DEFAULT 0,
+    pilt TEXT,
+    lisamisaeg DATETIME
+);
+
+
+
+
+
+
+

@@ -31,6 +31,7 @@ while ($paring->fetch()) {
     echo "</tr>";
 }
 }
+
 function lisa1punkt($id){
     global $yhendus;
    {
