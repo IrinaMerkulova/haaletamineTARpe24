@@ -95,5 +95,8 @@ kuvaTabelilaulud();
     <label>Laulja:</label><br>
     <input type="text" name="laulja"><br><br>
 
+    <label>pilt:</label><br>
+    <input type="text" name="pilt"><br><br>
+
     <input type="submit" value="Lisa laul">
 </form>
