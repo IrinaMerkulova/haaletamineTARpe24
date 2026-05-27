@@ -1,6 +1,22 @@
 <?php
 require('conf.php');
 global $yhendus;
+
+if (isset($_GET['peida'])) {
+    $paring = $yhendus->prepare("UPDATE laulud SET avalik = 0 WHERE id = ?");
+    $paring->bind_param("i", $_GET['peida']);
+    $paring->execute();
+    header("Location: haaletamineAdmin.php");
+    exit;
+}
+
+if (isset($_GET['naita'])) {
+    $paring = $yhendus->prepare("UPDATE laulud SET avalik = 1 WHERE id = ?");
+    $paring->bind_param("i", $_GET['naita']);
+    $paring->execute();
+    header("Location: haaletamineAdmin.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,6 +35,7 @@ global $yhendus;
         <th>Laulja</th>
         <th>Punktid</th>
         <th>Avalik</th>
+        <th>Tegevus</th>
     </tr>
 
     <?php
@@ -32,6 +49,15 @@ global $yhendus;
         echo "<td>" . htmlspecialchars($laulja) . "</td>";
         echo "<td>$punktid</td>";
         echo "<td>$avalik</td>";
+        echo "<td>";
+
+        if ($avalik == 1) {
+            echo "<a href='?peida=$id'>Peida</a>";
+        } else {
+            echo "<a href='?naita=$id'>Näita</a>";
+        }
+
+        echo "</td>";
         echo "</tr>";
     }
     ?>
