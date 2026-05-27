@@ -25,6 +25,19 @@ if (isset($_GET['kustuta_kom'])) {
     header("Location: haaletamineAdmin.php");
     exit;
 }
+
+if (isset($_GET['kustuta_laul'])) {
+    $paring = $yhendus->prepare("DELETE FROM kommentaarid WHERE laul_id = ?");
+    $paring->bind_param("i", $_GET['kustuta_laul']);
+    $paring->execute();
+
+    $paring = $yhendus->prepare("DELETE FROM laulud WHERE id = ?");
+    $paring->bind_param("i", $_GET['kustuta_laul']);
+    $paring->execute();
+
+    header("Location: haaletamineAdmin.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,10 +60,12 @@ while ($paring->fetch()) {
     echo "<p>$laulja | Punktid: $punktid</p>";
 
     if ($avalik == 1) {
-        echo "<a href='?peida=$id'>Peida</a><br>";
+        echo "<a href='?peida=$id'>Peida</a> ";
     } else {
-        echo "<a href='?naita=$id'>Näita</a><br>";
+        echo "<a href='?naita=$id'>Näita</a> ";
     }
+
+    echo "<a href='?kustuta_laul=$id'>Kustuta laul</a><br>";
 
     echo "<h3>Kommentaarid</h3>";
 
