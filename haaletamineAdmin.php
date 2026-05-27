@@ -52,6 +52,7 @@ if (isset($_GET['nulli'])) {
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 

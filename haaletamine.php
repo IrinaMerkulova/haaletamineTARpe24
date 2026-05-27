@@ -42,6 +42,7 @@ if (!empty($_POST['lauluNimi']) && !empty($_POST['laulja'])) {
 <head>
     <meta charset="UTF-8">
     <title>Hääletamine</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
