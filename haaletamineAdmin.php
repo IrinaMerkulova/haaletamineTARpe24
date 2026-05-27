@@ -38,6 +38,14 @@ if (isset($_GET['kustuta_laul'])) {
     header("Location: haaletamineAdmin.php");
     exit;
 }
+
+if (isset($_GET['nulli'])) {
+    $paring = $yhendus->prepare("UPDATE laulud SET punktid = 0 WHERE id = ?");
+    $paring->bind_param("i", $_GET['nulli']);
+    $paring->execute();
+    header("Location: haaletamineAdmin.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,6 +73,7 @@ while ($paring->fetch()) {
         echo "<a href='?naita=$id'>Näita</a> ";
     }
 
+    echo "<a href='?nulli=$id'>Nulli punktid</a> ";
     echo "<a href='?kustuta_laul=$id'>Kustuta laul</a><br>";
 
     echo "<h3>Kommentaarid</h3>";
