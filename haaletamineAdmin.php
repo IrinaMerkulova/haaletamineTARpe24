@@ -17,6 +17,14 @@ if (isset($_GET['naita'])) {
     header("Location: haaletamineAdmin.php");
     exit;
 }
+
+if (isset($_GET['kustuta_kom'])) {
+    $paring = $yhendus->prepare("DELETE FROM kommentaarid WHERE id = ?");
+    $paring->bind_param("i", $_GET['kustuta_kom']);
+    $paring->execute();
+    header("Location: haaletamineAdmin.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,40 +37,36 @@ if (isset($_GET['naita'])) {
 <h1>Admin leht</h1>
 <a href="haaletamine.php">Tagasi kasutaja lehele</a>
 
-<table border="1">
-    <tr>
-        <th>Laul</th>
-        <th>Laulja</th>
-        <th>Punktid</th>
-        <th>Avalik</th>
-        <th>Tegevus</th>
-    </tr>
+<?php
+$paring = $yhendus->prepare("SELECT id, lauluNimi, laulja, punktid, avalik FROM laulud");
+$paring->execute();
+$paring->bind_result($id, $lauluNimi, $laulja, $punktid, $avalik);
 
-    <?php
-    $paring = $yhendus->prepare("SELECT id, lauluNimi, laulja, punktid, avalik FROM laulud");
-    $paring->execute();
-    $paring->bind_result($id, $lauluNimi, $laulja, $punktid, $avalik);
+while ($paring->fetch()) {
+    echo "<h2>" . htmlspecialchars($lauluNimi) . "</h2>";
+    echo "<p>$laulja | Punktid: $punktid</p>";
 
-    while ($paring->fetch()) {
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
-        echo "<td>" . htmlspecialchars($laulja) . "</td>";
-        echo "<td>$punktid</td>";
-        echo "<td>$avalik</td>";
-        echo "<td>";
-
-        if ($avalik == 1) {
-            echo "<a href='?peida=$id'>Peida</a>";
-        } else {
-            echo "<a href='?naita=$id'>Näita</a>";
-        }
-
-        echo "</td>";
-        echo "</tr>";
+    if ($avalik == 1) {
+        echo "<a href='?peida=$id'>Peida</a><br>";
+    } else {
+        echo "<a href='?naita=$id'>Näita</a><br>";
     }
-    ?>
 
-</table>
+    echo "<h3>Kommentaarid</h3>";
+
+    $kom = $yhendus->prepare("SELECT id, kommentaar FROM kommentaarid WHERE laul_id = ?");
+    $kom->bind_param("i", $id);
+    $kom->execute();
+    $kom->bind_result($komId, $tekst);
+
+    while ($kom->fetch()) {
+        echo htmlspecialchars($tekst);
+        echo " <a href='?kustuta_kom=$komId'>Kustuta</a><br>";
+    }
+
+    echo "<hr>";
+}
+?>
 
 </body>
 </html>
