@@ -18,6 +18,14 @@ if (isset($_GET['miinus1punkt'])) {
     exit;
 }
 
+if (!empty($_POST['kommentaar']) && isset($_POST['laul_id'])) {
+    $paring = $yhendus->prepare("INSERT INTO kommentaarid (laul_id, kommentaar) VALUES (?, ?)");
+    $paring->bind_param("is", $_POST['laul_id'], $_POST['kommentaar']);
+    $paring->execute();
+    header("Location: haaletamine.php");
+    exit;
+}
+
 if (!empty($_POST['lauluNimi']) && !empty($_POST['laulja'])) {
     $paring = $yhendus->prepare(
             "INSERT INTO laulud (lauluNimi, laulja, pilt, avalik, lisamisaeg)
@@ -45,6 +53,7 @@ if (!empty($_POST['lauluNimi']) && !empty($_POST['laulja'])) {
         <th>Laulja</th>
         <th>Punktid</th>
         <th>Hääleta</th>
+        <th>Kommentaarid</th>
     </tr>
 
     <?php
@@ -54,13 +63,32 @@ if (!empty($_POST['lauluNimi']) && !empty($_POST['laulja'])) {
 
     while ($paring->fetch()) {
         echo "<tr>";
-        echo "<td>$lauluNimi</td>";
-        echo "<td>$laulja</td>";
+        echo "<td>" . htmlspecialchars($lauluNimi) . "</td>";
+        echo "<td>" . htmlspecialchars($laulja) . "</td>";
         echo "<td>$punktid</td>";
         echo "<td>
             <a href='?lisa1punkt=$id'>+1</a>
             <a href='?miinus1punkt=$id'>-1</a>
           </td>";
+
+        echo "<td>";
+
+        $kom = $yhendus->prepare("SELECT kommentaar FROM kommentaarid WHERE laul_id = ?");
+        $kom->bind_param("i", $id);
+        $kom->execute();
+        $kom->bind_result($tekst);
+
+        while ($kom->fetch()) {
+            echo htmlspecialchars($tekst) . "<br>";
+        }
+
+        echo "<form method='post'>
+            <input type='hidden' name='laul_id' value='$id'>
+            <input type='text' name='kommentaar' placeholder='Lisa kommentaar'>
+            <button type='submit'>Lisa</button>
+          </form>";
+
+        echo "</td>";
         echo "</tr>";
     }
     ?>
