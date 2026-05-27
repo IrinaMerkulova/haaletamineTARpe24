@@ -44,6 +44,12 @@ CREATE TABLE IF NOT EXISTS laulud (
     lisamisaeg DATETIME
 );
 
+CREATE TABLE IF NOT EXISTS kommentaarid (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    laul_id INT NOT NULL,
+    kommentaar TEXT NOT NULL,
+    lisamisaeg DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 
 
